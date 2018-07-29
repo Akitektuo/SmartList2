@@ -1,8 +1,7 @@
 package com.akitektuo.smartlist2.server
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 /**
  * Created by AoD Akitektuo on 29-Jul-18 at 16:28.
@@ -10,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase
 class Database {
 
     val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    val currentUserId = auth.currentUser?.uid ?: ""
     private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     init {
@@ -96,6 +96,23 @@ class Database {
             val id: String = ""
     )
 
+    private val databaseUsers = database.child("Users")
+
     fun isUserSignedIn() = auth.currentUser != null
 
+    fun isNewUser(afterResult: (Boolean) -> Unit) {
+        databaseUsers.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(data: DataSnapshot) {
+                val users = ArrayList<User>()
+                data.children.mapNotNullTo(users, {
+                    it.getValue<User>(User::class.java)
+                })
+                afterResult(users.none { it.id == currentUserId })
+            }
+        })
+    }
 }
