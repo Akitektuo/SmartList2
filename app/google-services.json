@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "682539878788",
+    "firebase_url": "https://smart-list-2.firebaseio.com",
+    "project_id": "smart-list-2",
+    "storage_bucket": "smart-list-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682539878788:android:5f2dbe4527d5c0ed",
+        "android_client_info": {
+          "package_name": "com.akitektuo.smartlist2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "682539878788-767pjevp3s2neoape83748hf7r3nd2rb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.akitektuo.smartlist2",
+            "certificate_hash": "41300d6418200c5999767a4ebdaf9988ca48000e"
+          }
+        },
+        {
+          "client_id": "682539878788-r3kr95suikjlhoc9r2ggrlu1si8t438m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSpW5jEtVm9V6DzwihT6RpaYi0TOrxwvY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "682539878788-r3kr95suikjlhoc9r2ggrlu1si8t438m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
