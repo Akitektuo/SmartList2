@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Smart List</string>
     <string name="sign_in">Sign in</string>
-    <string name="welcome_description">Smart List is an app that helps you manage your money by keeping track of your expenses and give you estimates of costs per day, week and month. It uses categories and recommendations to manage your bought products and your lists.</string>
-    <string name="cloud_description">Smart List uses Google Cloud services to keep your data safe in sync across multiple devices enabling you to use the app even in offline mode, not connected to the internet, and will sync when a stable connection is established.</string>
-    <string name="sheet_description">Smart List can transform your lists of products into sheets that are compatible with Microsoft Excel or Google Sheets so you can give up the pen and paper for your convenience and say goodbye to hours spent to verify your expenses.</string>
-    <string name="ai_description">Smart List uses Artificial Intelligence to make it more easy and fast to register each spent penny either by analysing your words through Google Assistant or by scanning a photographed receipt letting you decide the most convenient way to track your expenses.</string>
+    <string name="welcome_description">Manage your money by keeping track of your expenses and provide estimates of costs per day, week and month.</string>
+    <string name="cloud_description">Keep your data safe in sync across multiple devices enabling you to use the app even in offline mode.</string>
+    <string name="sheet_description">Transform your lists into sheets that are compatible with Microsoft Excel or Google Sheets.</string>
+    <string name="ai_description">Artificial Intelligence makes it easy and fast to trace your costs by using Google Assistant or scanning a receipt.</string>
 </resources>

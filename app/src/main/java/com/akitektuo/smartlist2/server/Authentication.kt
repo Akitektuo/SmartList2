@@ -41,7 +41,9 @@ class Authentication(private val activity: Activity, private val onError: (error
                 val credential = GoogleAuthProvider.getCredential(result.signInAccount?.idToken, null)
                 database.auth.signInWithCredential(credential).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        // TODO check if new user
+                        database.isNewUser {
+                            database.createUser()
+                        }
                         onSuccess
                     } else {
                         error(it.exception?.message)

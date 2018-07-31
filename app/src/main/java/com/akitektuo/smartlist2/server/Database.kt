@@ -9,8 +9,10 @@ import com.google.firebase.database.*
 class Database {
 
     val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    val currentUserId = auth.currentUser?.uid ?: ""
+    val currentUser = auth.currentUser!!
+    val currentUserId = currentUser.uid
     private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
+    private var errorHandler: ((String) -> Unit)? = null
 
     init {
         database.keepSynced(true)
@@ -24,7 +26,7 @@ class Database {
             val fill: Boolean = false,
             val preferredCurrency: String = "eur",
             val graphColumns: Int = 7,
-            val id: String = ""
+            var id: String = ""
     )
 
     data class UserList(
@@ -82,7 +84,7 @@ class Database {
             val id: String = ""
     )
 
-    data class UserListExcel(
+    data class UserExcel(
             val userId: String = "",
             val excelId: String = "",
             val type: Int = 0,
@@ -97,21 +99,78 @@ class Database {
     )
 
     private val databaseUsers = database.child("Users")
+    private val databaseUsersLists = database.child("UsersLists")
+    private val databaseLists = database.child("Lists")
+    private val databaseConnections = database.child("Connections")
+    private val databaseConditions = database.child("Conditions")
+    private val databaseListsItems = database.child("ListsItems")
+    private val databaseProducts = database.child("Products")
+    private val databasePrices = database.child("Prices")
+    private val databaseCategories = database.child("Categories")
+    private val databaseUsersExcels = database.child("UsersExcels")
+    private val databaseExcels = database.child("Excels")
 
+    fun setOnErrorHandler(onErrorHandler: (message: String) -> Unit) {
+        errorHandler = onErrorHandler
+    }
+
+    fun onError(error: String) {
+        errorHandler?.invoke(error)
+    }
     fun isUserSignedIn() = auth.currentUser != null
 
-    fun isNewUser(afterResult: (Boolean) -> Unit) {
+    fun getAllUsers(result: (ArrayList<User>) -> Unit) {
         databaseUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
-
+                onError(error.message)
             }
 
             override fun onDataChange(data: DataSnapshot) {
                 val users = ArrayList<User>()
-                data.children.mapNotNullTo(users, {
-                    it.getValue<User>(User::class.java)
-                })
-                afterResult(users.none { it.id == currentUserId })
+                data.children.mapNotNullTo(users) {
+                    it.getValue(User::class.java)
+                }
+                result(users)
+            }
+        })
+    }
+
+    fun isNewUser(result: (Boolean) -> Unit) {
+        getAllUsers {
+            result(it.none { it.id == currentUserId })
+        }
+    }
+
+    fun createUser() {
+        addUser(User(currentUser.displayName!!, currentUser.email!!))
+    }
+
+    fun addUser(user: User, result: () -> Unit = {}) {
+        if (user.id == "") {
+            user.id = databaseUsers.push().key.toString()
+        }
+        databaseUsers.child(user.id).setValue(user).addOnCompleteListener {
+            if (it.isSuccessful) {
+                result()
+            } else {
+                onError(it.exception?.message!!)
+            }
+        }
+    }
+
+    fun getUser(id: String, result: (User) -> Unit) {
+        databaseUsers.child(id).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                onError(error.message)
+            }
+
+            override fun onDataChange(data: DataSnapshot) {
+                val user = data.getValue(User::class.java)
+                if (user != null) {
+                    result(user)
+                } else {
+                    onError("User is null")
+                }
             }
         })
     }

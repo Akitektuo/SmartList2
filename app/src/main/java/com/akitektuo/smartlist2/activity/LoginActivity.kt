@@ -42,5 +42,8 @@ class LoginActivity : AppCompatActivity() {
         adapter.add(R.drawable.color_ai, "Artificial Intelligence", getString(R.string.ai_description))
         pagerBoarding.adapter = adapter
         dotsBoarding.setViewPager(pagerBoarding)
+        pagerBoarding.setScrollDurationFactor(2.0)
+        pagerBoarding.interval = 5000
+        pagerBoarding.startAutoScroll(5000)
     }
 }
