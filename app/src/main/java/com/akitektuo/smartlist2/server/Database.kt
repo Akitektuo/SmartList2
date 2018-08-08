@@ -1,17 +1,21 @@
 package com.akitektuo.smartlist2.server
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 /**
  * Created by AoD Akitektuo on 29-Jul-18 at 16:28.
  */
 class Database {
 
-    val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    val currentUser = auth.currentUser!!
-    val currentUserId = currentUser.uid
-    private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
+    val auth = FirebaseAuth.getInstance()
+    var currentUser: FirebaseUser? = auth.currentUser
+    var currentUserId = currentUser?.uid
+    private val database = FirebaseDatabase.getInstance().reference
     private var errorHandler: ((String) -> Unit)? = null
 
     init {
@@ -114,10 +118,11 @@ class Database {
         errorHandler = onErrorHandler
     }
 
-    fun onError(error: String) {
-        errorHandler?.invoke(error)
-    }
+    fun onError(error: String) = errorHandler?.invoke(error)
+
     fun isUserSignedIn() = auth.currentUser != null
+
+    fun signOut() = auth.signOut()
 
     fun getAllUsers(result: (ArrayList<User>) -> Unit) {
         databaseUsers.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -136,14 +141,12 @@ class Database {
     }
 
     fun isNewUser(result: (Boolean) -> Unit) {
-        getAllUsers {
-            result(it.none { it.id == currentUserId })
+        getAllUsers { users ->
+            result(users.none { it.id == currentUserId })
         }
     }
 
-    fun createUser() {
-        addUser(User(currentUser.displayName!!, currentUser.email!!))
-    }
+    fun createUser() = addUser(User(currentUser?.displayName!!, currentUser?.email!!, id = currentUserId!!))
 
     fun addUser(user: User, result: () -> Unit = {}) {
         if (user.id == "") {
@@ -156,6 +159,11 @@ class Database {
                 onError(it.exception?.message!!)
             }
         }
+    }
+
+    fun refreshUser() {
+        currentUser = auth.currentUser
+        currentUserId = currentUser?.uid!!
     }
 
     fun getUser(id: String, result: (User) -> Unit) {

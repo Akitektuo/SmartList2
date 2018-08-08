@@ -5,4 +5,5 @@
     <string name="cloud_description">Keep your data safe in sync across multiple devices enabling you to use the app even in offline mode.</string>
     <string name="sheet_description">Transform your lists into sheets that are compatible with Microsoft Excel or Google Sheets.</string>
     <string name="ai_description">Artificial Intelligence makes it easy and fast to trace your costs by using Google Assistant or scanning a receipt.</string>
+    <string name="settings">Settings</string>
 </resources>

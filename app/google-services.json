@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "682539878788-kibub9gpc9csl1ergiersoul53hq4ii8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.akitektuo.smartlist2",
+            "certificate_hash": "d3de8d0a1acbe6be52e4387b37e1c0782baa2520"
+          }
+        },
+        {
           "client_id": "682539878788-r3kr95suikjlhoc9r2ggrlu1si8t438m.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -3,6 +3,7 @@ package com.akitektuo.smartlist2.server
 import android.app.Activity
 import android.content.Intent
 import com.akitektuo.smartlist2.R
+import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -16,8 +17,6 @@ class Authentication(private val activity: Activity, private val onError: (error
     companion object {
         private const val REQUEST_CODE = 400
     }
-
-    private val database = Database()
 
     fun signIn() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -39,14 +38,17 @@ class Authentication(private val activity: Activity, private val onError: (error
             val result = Auth.GoogleSignInApi.getSignInResultFromIntent(intent)
             if (result.isSuccess) {
                 val credential = GoogleAuthProvider.getCredential(result.signInAccount?.idToken, null)
-                database.auth.signInWithCredential(credential).addOnCompleteListener {
-                    if (it.isSuccessful) {
+                database.auth.signInWithCredential(credential).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        database.refreshUser()
                         database.isNewUser {
-                            database.createUser()
+                            if (it) {
+                                database.createUser()
+                            }
                         }
-                        onSuccess
+                        onSuccess()
                     } else {
-                        error(it.exception?.message)
+                        error(task.exception?.message)
                     }
                 }
             } else {
