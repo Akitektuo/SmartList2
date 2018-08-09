@@ -37,6 +37,7 @@ class Database {
             val userId: String = "",
             val listId: String = "",
             val type: Int = 0,
+            val write: Boolean = false,
             val id: String = ""
     )
 
