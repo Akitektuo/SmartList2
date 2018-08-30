@@ -38,7 +38,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.2'
     implementation 'com.google.firebase:firebase-storage:16.0.1'
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
-    implementation ('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
+    implementation('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
     }
     implementation 'de.hdodenhof:circleimageview:2.2.0'

@@ -43,22 +43,22 @@ class MainActivity : AppCompatActivity() {
         listOptions.layoutManager = LinearLayoutManager(this)
         listOptions.adapter = adapter
         adapter.add(OptionModel("Manage Categories") {
-
+            startActivity(Intent(this, CategoriesActivity::class.java))
         })
         adapter.add(OptionModel("Adaptive Mode") {
-
+            startActivity(Intent(this, AdaptiveActivity::class.java))
         })
         adapter.add(OptionModel("Recommendations") {
-
+            startActivity(Intent(this, RecommendationsActivity::class.java))
         })
         adapter.add(OptionModel("Auto Fill") {
-
+            startActivity(Intent(this, AutoFillActivity::class.java))
         })
         adapter.add(OptionModel("Preferred Currency") {
-
+            startActivity(Intent(this, CurrencyActivity::class.java))
         })
-        adapter.add(OptionModel("Graph Columns") {
-
+        adapter.add(OptionModel("Statistics") {
+            startActivity(Intent(this, StatisticsActivity::class.java))
         })
         adapter.add(OptionModel("Sign out") {
             database.signOut()

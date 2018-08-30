@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Option"
+        android:fontFamily="@font/noto"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"

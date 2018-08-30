@@ -26,6 +26,12 @@
             android:name=".activity.LoginActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.CategoriesActivity" />
+        <activity android:name=".activity.AdaptiveActivity" />
+        <activity android:name=".activity.AutoFillActivity" />
+        <activity android:name=".activity.RecommendationsActivity" />
+        <activity android:name=".activity.CurrencyActivity" />
+        <activity android:name=".activity.StatisticsActivity"></activity>
     </application>
 
 </manifest>

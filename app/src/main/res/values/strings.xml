@@ -6,4 +6,10 @@
     <string name="sheet_description">Transform your lists into sheets that are compatible with Microsoft Excel or Google Sheets.</string>
     <string name="ai_description">Artificial Intelligence makes it easy and fast to trace your costs by using Google Assistant or scanning a receipt.</string>
     <string name="settings">Settings</string>
+    <string name="categories">Categories</string>
+    <string name="adaptive_mode">Adaptive Mode</string>
+    <string name="auto_fill">Auto Fill</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="currency">Currency</string>
+    <string name="statistics">Statistics</string>
 </resources>
