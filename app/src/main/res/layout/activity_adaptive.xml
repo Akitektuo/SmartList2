@@ -7,20 +7,19 @@
     tools:context=".activity.AdaptiveActivity">
 
     <TextView
-        android:id="@+id/textAdaptiveMode"
+        android:id="@+id/textAdaptive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_margin="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/noto"
         android:text="@string/adaptive_mode"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageBack"
+        app:layout_constraintStart_toEndOf="@+id/imageBack"
+        app:layout_constraintTop_toTopOf="@+id/imageBack" />
 
     <ImageView
         android:id="@+id/imageBack"
@@ -35,5 +34,151 @@
         android:src="@drawable/light_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textAdaptiveDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/noto"
+        android:text="@string/adaptive_description"
+        android:textColor="@color/gray"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageBack"
+        app:layout_constraintTop_toBottomOf="@+id/textAdaptive" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:paddingTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textAdaptiveDescription">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radioAdaptiveMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textAdaptiveMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/noto"
+                android:text="@string/switch_automatically"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/radioAdaptiveMode"
+                app:layout_constraintStart_toEndOf="@+id/radioAdaptiveMode"
+                app:layout_constraintTop_toTopOf="@+id/radioAdaptiveMode" />
+
+            <TextView
+                android:id="@+id/textSwitchLight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto"
+                android:text="Switch to light mode at 07:00"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toStartOf="@+id/textAdaptiveMode"
+                app:layout_constraintTop_toBottomOf="@+id/textAdaptiveMode" />
+
+            <TextView
+                android:id="@+id/textSwitchDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto"
+                android:text="Switch to dark mode at 21:00"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toStartOf="@+id/textAdaptiveMode"
+                app:layout_constraintTop_toBottomOf="@+id/textSwitchLight" />
+
+            <ImageView
+                android:id="@+id/imageEditLight"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="4dp"
+                android:src="@drawable/ic_light_time"
+                app:layout_constraintBottom_toBottomOf="@+id/textSwitchLight"
+                app:layout_constraintStart_toEndOf="@+id/textSwitchLight"
+                app:layout_constraintTop_toTopOf="@+id/textSwitchLight" />
+
+            <ImageView
+                android:id="@+id/imageEditDark"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="4dp"
+                android:src="@drawable/ic_light_time"
+                app:layout_constraintBottom_toBottomOf="@+id/textSwitchDark"
+                app:layout_constraintStart_toEndOf="@+id/textSwitchDark"
+                app:layout_constraintTop_toTopOf="@+id/textSwitchDark" />
+
+            <RadioButton
+                android:id="@+id/radioLightMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textSwitchDark" />
+
+            <TextView
+                android:id="@+id/textLightMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/noto"
+                android:text="@string/only_light_mode"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/radioLightMode"
+                app:layout_constraintStart_toEndOf="@+id/radioLightMode"
+                app:layout_constraintTop_toTopOf="@+id/radioLightMode" />
+
+            <RadioButton
+                android:id="@+id/radioDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioLightMode" />
+
+            <TextView
+                android:id="@+id/textDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/noto"
+                android:text="@string/only_light_mode"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/radioDarkMode"
+                app:layout_constraintStart_toEndOf="@+id/radioDarkMode"
+                app:layout_constraintTop_toTopOf="@+id/radioDarkMode" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

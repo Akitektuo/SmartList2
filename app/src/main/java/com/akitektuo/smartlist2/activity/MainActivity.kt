@@ -9,6 +9,7 @@ import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.adapter.list.OptionAdaper
 import com.akitektuo.smartlist2.adapter.list.OptionModel
+import com.akitektuo.smartlist2.adapter.pager.ListsAdapter
 import com.akitektuo.smartlist2.util.Themes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -65,5 +66,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         })
+
+        val fragmentsLists = ListsAdapter(supportFragmentManager)
+        fragmentsLists.add("My lists", true)
+        fragmentsLists.add("Shared with me", false)
+        pagerLists.adapter = fragmentsLists
+        tabLists.setupWithViewPager(pagerLists)
     }
 }

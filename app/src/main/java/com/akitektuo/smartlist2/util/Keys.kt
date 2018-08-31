@@ -9,6 +9,7 @@ class Keys {
         const val KEY_IMAGE_ID = "image_id"
         const val KEY_TITLE = "title"
         const val KEY_DESCRIPTION = "description"
+        const val KEY_OWNER = "owner"
     }
 
 }

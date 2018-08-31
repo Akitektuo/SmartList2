@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/textList"
@@ -10,7 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="List name"
+        android:textColor="@color/black"
         android:fontFamily="@font/noto"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,8 +21,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="26 products"
         android:fontFamily="@font/noto"
+        android:text="26 products"
+        android:textColor="@color/gray"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/textList"
         app:layout_constraintTop_toBottomOf="@+id/textList" />
 
@@ -30,17 +34,33 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="13:45"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
         android:fontFamily="@font/noto"
         app:layout_constraintBottom_toBottomOf="@+id/textProducts"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textBy"
+        android:id="@+id/textOwner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Alex Copindean"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         android:fontFamily="@font/noto"
         app:layout_constraintEnd_toEndOf="@+id/textModifiedDate"
         app:layout_constraintTop_toTopOf="@+id/textList" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textProducts" />
 
 </android.support.constraint.ConstraintLayout>

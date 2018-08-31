@@ -12,4 +12,7 @@
     <string name="recommendations">Recommendations</string>
     <string name="currency">Currency</string>
     <string name="statistics">Statistics</string>
+    <string name="adaptive_description">Adaptive mode adjusts the theme of Smart List making it easier on your eyes by dimming the light in the darkness or by making the screen more visible in the strong light</string>
+    <string name="switch_automatically">Switch automatically between modes</string>
+    <string name="only_light_mode">Only light mode</string>
 </resources>

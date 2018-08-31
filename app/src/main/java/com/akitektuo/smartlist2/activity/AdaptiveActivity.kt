@@ -17,5 +17,27 @@ class AdaptiveActivity : AppCompatActivity() {
         imageBack.setOnClickListener {
             finish()
         }
+
+        radioAdaptiveMode.isChecked = true
+        radioLightMode.isChecked = false
+        radioDarkMode.isChecked = false
+        radioAdaptiveMode.setOnCheckedChangeListener { _, value ->
+            if (value) {
+                radioLightMode.isChecked = false
+                radioDarkMode.isChecked = false
+            }
+        }
+        radioLightMode.setOnCheckedChangeListener { _, value ->
+            if (value) {
+                radioAdaptiveMode.isChecked = false
+                radioDarkMode.isChecked = false
+            }
+        }
+        radioDarkMode.setOnCheckedChangeListener { _, value ->
+            if (value) {
+                radioAdaptiveMode.isChecked = false
+                radioLightMode.isChecked = false
+            }
+        }
     }
 }
