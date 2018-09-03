@@ -61,6 +61,9 @@ class AdaptiveActivity : AppCompatActivity() {
                     currentUser.lightStart = newLightStart
                     database.setUser(currentUser) {
                         textSwitchLight.text = "Switch to light mode at ${lightDate.formatTime()}"
+                        currentUser.computeThemeForTime { isLight ->
+                            loadTheme(isLight)
+                        }
                     }
                 }, lightDate.getUtcHours(), lightDate.getUtcMinutes(), true).show()
             }
@@ -75,6 +78,9 @@ class AdaptiveActivity : AppCompatActivity() {
                     currentUser.darkStart = newDarkStart
                     database.setUser(currentUser) {
                         textSwitchDark.text = "Switch to dark mode at ${darkDate.formatTime()}"
+                        currentUser.computeThemeForTime { isLight ->
+                            loadTheme(isLight)
+                        }
                     }
                 }, darkDate.getUtcHours(), darkDate.getUtcMinutes(), true).show()
             }
