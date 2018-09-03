@@ -1,11 +1,15 @@
 package com.akitektuo.smartlist2.server
 
+import com.akitektuo.smartlist2.util.getUtcHours
+import com.akitektuo.smartlist2.util.getUtcMinutes
+import com.akitektuo.smartlist2.util.turnIntoMilliseconds
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.util.*
 
 /**
  * Created by AoD Akitektuo on 29-Jul-18 at 16:28.
@@ -25,13 +29,26 @@ class Database {
     data class User(
             val name: String = "",
             val email: String = "",
-            val mode: Int = 0,
+            var mode: Int = 0,
+            var lightStart: Long = 25200000,
+            var darkStart: Long = 75600000,
             val recommendations: Boolean = false,
             val fill: Boolean = false,
             val preferredCurrency: String = "eur",
             val graphColumns: Int = 7,
             var id: String = ""
-    )
+    ) {
+        fun computeThemeForTime(loadTheme: (Boolean) -> Unit) {
+            val deviceTime = Date(System.currentTimeMillis())
+            val deviceHoursAndMinutes = turnIntoMilliseconds(deviceTime.getUtcHours(), deviceTime.getUtcMinutes())
+            if (lightStart < darkStart) {
+                loadTheme(deviceHoursAndMinutes in lightStart..(darkStart - 1))
+            } else {
+                // TODO to be resolved
+                loadTheme(true)
+            }
+        }
+    }
 
     data class UserList(
             val userId: String = "",
@@ -147,9 +164,9 @@ class Database {
         }
     }
 
-    fun createUser() = addUser(User(currentUser?.displayName!!, currentUser?.email!!, id = currentUserId!!))
+    fun createUser() = setUser(User(currentUser?.displayName!!, currentUser?.email!!, id = currentUserId!!))
 
-    fun addUser(user: User, result: () -> Unit = {}) {
+    fun setUser(user: User, result: () -> Unit = {}) {
         if (user.id == "") {
             user.id = databaseUsers.push().key.toString()
         }
@@ -182,5 +199,15 @@ class Database {
                 }
             }
         })
+    }
+
+    fun getCurrentUser(result: (User) -> Unit) {
+        getUser(currentUserId!!, result)
+    }
+
+    fun editCurrentUser(edit: (User) -> User, result: () -> Unit = {}) {
+        getCurrentUser {
+            setUser(edit(it), result)
+        }
     }
 }

@@ -12,11 +12,20 @@ fun Context?.toast(msg: String) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
 
-fun Date.addToDate(type: Int, amount: Int): Date {
+private fun Date.addToDate(type: Int, amount: Int): Date {
     val newDate = Calendar.getInstance()
     newDate.time = this
     newDate.add(type, amount)
     return newDate.time
+}
+
+private fun Date.get(type: Int, useUtc: Boolean = false): Int {
+    val date = if (useUtc)
+        Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+    else
+        Calendar.getInstance()
+    date.time = this
+    return date.get(type)
 }
 
 fun Date.addDays(days: Int): Date {
@@ -31,16 +40,42 @@ fun Date.addYears(years: Int): Date {
     return this.addToDate(Calendar.YEAR, years)
 }
 
+fun Date.getUtcHours(): Int {
+    return this.get(Calendar.HOUR_OF_DAY, true)
+}
+
+fun Date.getUtcMinutes(): Int {
+    return this.get(Calendar.MINUTE, true)
+}
+
 fun Date.formatLastDate(): String {
     val now = Date()
     if (now.addDays(-1).time < this.time) {
-        return SimpleDateFormat("kk:mm", Locale.getDefault()).format(this)
+        return this.format("kk:mm")
     }
     if (now.addWeeks(-1).time < this.time) {
-        return SimpleDateFormat("EEE", Locale.getDefault()).format(this)
+        return this.format("EEE")
     }
     if (now.addYears(-1).time < this.time) {
-        return SimpleDateFormat("d MMM", Locale.getDefault()).format(this)
+        return this.format("d MMM")
     }
-    return SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(this)
+    return this.format("d MMM yyyy")
+}
+
+fun Date.formatTime(): String {
+    return this.format("kk:mm", true)
+}
+
+fun Date.format(pattern: String, useUtc: Boolean = false): String {
+    val dateFormat = SimpleDateFormat(pattern, Locale.getDefault())
+    if (useUtc) {
+        dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+    }
+    return dateFormat.format(this)
+}
+
+fun turnIntoMilliseconds(hours: Int, minutes: Int): Long {
+    val oneMinute = 60000
+    val oneHour = 60 * oneMinute
+    return (oneHour * hours + oneMinute * minutes).toLong()
 }

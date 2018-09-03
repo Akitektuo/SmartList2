@@ -24,6 +24,11 @@ class Themes {
         }
 
         fun setDarkStatusBar(activity: Activity) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val view = activity.window.decorView.rootView
+                val flags = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+                view.systemUiVisibility = flags
+            }
             activity.window.statusBarColor = (ContextCompat.getColor(activity, R.color.black))
         }
     }
