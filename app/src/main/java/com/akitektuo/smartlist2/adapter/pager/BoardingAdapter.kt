@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.akitektuo.smartlist2.fragment.BoardingFragment
-import com.akitektuo.smartlist2.util.Keys.Companion.KEY_DESCRIPTION
-import com.akitektuo.smartlist2.util.Keys.Companion.KEY_IMAGE_ID
-import com.akitektuo.smartlist2.util.Keys.Companion.KEY_TITLE
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_DESCRIPTION
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_IMAGE_ID
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_TITLE
 
 /**
  * Created by AoD Akitektuo on 29-Jul-18 at 08:32.

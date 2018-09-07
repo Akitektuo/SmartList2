@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.akitektuo.smartlist2.R
-import com.akitektuo.smartlist2.util.Keys.Companion.KEY_DESCRIPTION
-import com.akitektuo.smartlist2.util.Keys.Companion.KEY_IMAGE_ID
-import com.akitektuo.smartlist2.util.Keys.Companion.KEY_TITLE
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_DESCRIPTION
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_IMAGE_ID
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_TITLE
 import kotlinx.android.synthetic.main.fragment_boarding.*
 
 /**

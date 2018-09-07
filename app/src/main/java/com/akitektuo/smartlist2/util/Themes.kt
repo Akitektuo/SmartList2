@@ -5,6 +5,11 @@ import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.view.View
 import com.akitektuo.smartlist2.R
+import com.akitektuo.smartlist2.util.Constants.Companion.MODE_ADAPTIVE
+import com.akitektuo.smartlist2.util.Constants.Companion.MODE_DARK
+import com.akitektuo.smartlist2.util.Constants.Companion.MODE_LIGHT
+import com.akitektuo.smartlist2.util.Constants.Companion.NOT_SET
+import java.util.*
 
 /**
  * Created by AoD Akitektuo on 29-Jul-18 at 13:59.
@@ -30,6 +35,29 @@ class Themes {
                 view.systemUiVisibility = flags
             }
             activity.window.statusBarColor = (ContextCompat.getColor(activity, R.color.black))
+        }
+    }
+
+    var lightStart = NOT_SET.toLong()
+    var darkStart = NOT_SET.toLong()
+    var mode = NOT_SET
+
+    fun isSet() = mode != NOT_SET
+
+    fun isLight(): Boolean {
+        return when (mode) {
+            MODE_ADAPTIVE -> {
+                val deviceTime = Date(System.currentTimeMillis())
+                val deviceHoursAndMinutes = turnIntoMilliseconds(deviceTime.getLocalHours(), deviceTime.getLocalMinutes())
+                if (lightStart < darkStart) {
+                    deviceHoursAndMinutes in lightStart..(darkStart - 1)
+                } else {
+                    deviceHoursAndMinutes !in darkStart..(lightStart - 1)
+                }
+            }
+            MODE_LIGHT -> true
+            MODE_DARK -> false
+            else -> true
         }
     }
 

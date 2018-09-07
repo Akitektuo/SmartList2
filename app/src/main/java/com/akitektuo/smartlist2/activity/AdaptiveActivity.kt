@@ -4,122 +4,118 @@ import android.app.TimePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.SmartList.Companion.database
-import com.akitektuo.smartlist2.server.Database
 import com.akitektuo.smartlist2.util.*
+import com.akitektuo.smartlist2.util.Constants.Companion.MODE_ADAPTIVE
+import com.akitektuo.smartlist2.util.Constants.Companion.MODE_DARK
+import com.akitektuo.smartlist2.util.Constants.Companion.MODE_LIGHT
+import com.akitektuo.smartlist2.util.Constants.Companion.NOT_SET
 import kotlinx.android.synthetic.main.activity_adaptive.*
 import java.util.*
 
 
-class AdaptiveActivity : AppCompatActivity() {
+class AdaptiveActivity : ThemeActivity() {
 
-    private lateinit var currentUser: Database.User
+    private var dialogTheme = NOT_SET
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adaptive)
-
         loadDataForCurrentUser()
         setupChecks()
         setupClicks()
     }
 
-    private fun loadDataForCurrentUser() {
-        database.getCurrentUser {
-            currentUser = it
-            var lightDate = Date(currentUser.lightStart)
-            var darkDate = Date(currentUser.darkStart)
-            when (currentUser.mode) {
-                0 -> {
-                    currentUser.computeThemeForTime { isLight ->
-                        loadTheme(isLight)
-                    }
-                    radioAdaptiveMode.isChecked = true
-                }
-                1 -> {
-                    loadTheme(true)
-                    radioLightMode.isChecked = true
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
 
-                }
-                2 -> {
-                    loadTheme(false)
-                    radioDarkMode.isChecked = true
-                }
+    private fun loadDataForCurrentUser() {
+        with(database.theme) {
+            loadTheme()
+            var lightDate = Date(lightStart)
+            var darkDate = Date(darkStart)
+            when (mode) {
+                MODE_ADAPTIVE -> radioAdaptiveMode.isChecked = true
+                MODE_LIGHT -> radioLightMode.isChecked = true
+                MODE_DARK -> radioDarkMode.isChecked = true
             }
             textSwitchLight.text = "Switch to light mode at ${lightDate.formatTime()}"
             textSwitchDark.text = "Switch to dark mode at ${darkDate.formatTime()}"
             imageEditLight.setOnClickListener { _ ->
-                TimePickerDialog(this, { _, hours: Int, minutes: Int ->
+                TimePickerDialog(this@AdaptiveActivity, dialogTheme, { _, hours: Int, minutes: Int ->
                     val newLightStart = turnIntoMilliseconds(hours, minutes)
-                    if (newLightStart == currentUser.darkStart) {
+                    if (newLightStart == darkStart) {
                         toast("Cannot switch to light mode and dark mode at the same time")
                         return@TimePickerDialog
                     }
                     lightDate = Date(newLightStart)
-                    currentUser.lightStart = newLightStart
-                    database.setUser(currentUser) {
-                        textSwitchLight.text = "Switch to light mode at ${lightDate.formatTime()}"
-                        currentUser.computeThemeForTime { isLight ->
-                            loadTheme(isLight)
-                        }
+                    lightStart = newLightStart
+                    database.editCurrentUser {
+                        it.lightStart = newLightStart
+                        it
                     }
+                    textSwitchLight.text = "Switch to light mode at ${lightDate.formatTime()}"
+                    loadTheme()
                 }, lightDate.getUtcHours(), lightDate.getUtcMinutes(), true).show()
             }
             imageEditDark.setOnClickListener { _ ->
-                TimePickerDialog(this, { _, hours: Int, minutes: Int ->
+                TimePickerDialog(this@AdaptiveActivity, dialogTheme, { _, hours: Int, minutes: Int ->
                     val newDarkStart = turnIntoMilliseconds(hours, minutes)
-                    if (newDarkStart == currentUser.lightStart) {
+                    if (newDarkStart == lightStart) {
                         toast("Cannot switch to light mode and dark mode at the same time")
                         return@TimePickerDialog
                     }
                     darkDate = Date(newDarkStart)
-                    currentUser.darkStart = newDarkStart
-                    database.setUser(currentUser) {
-                        textSwitchDark.text = "Switch to dark mode at ${darkDate.formatTime()}"
-                        currentUser.computeThemeForTime { isLight ->
-                            loadTheme(isLight)
-                        }
+                    darkStart = newDarkStart
+                    database.editCurrentUser {
+                        it.darkStart = newDarkStart
+                        it
                     }
+                    textSwitchDark.text = "Switch to dark mode at ${darkDate.formatTime()}"
+                    loadTheme()
                 }, darkDate.getUtcHours(), darkDate.getUtcMinutes(), true).show()
             }
         }
     }
 
     private fun setupChecks() {
-        radioAdaptiveMode.setOnCheckedChangeListener { _, value ->
-            if (value) {
-                radioLightMode.isChecked = false
-                radioDarkMode.isChecked = false
-                currentUser.mode = 0
-                database.setUser(currentUser) {
-                    currentUser.computeThemeForTime { isLight ->
-                        loadTheme(isLight)
-                    }
+        with(database.theme) {
+            radioAdaptiveMode.setOnCheckedChangeListener { _, value ->
+                if (value) {
+                    radioLightMode.isChecked = false
+                    radioDarkMode.isChecked = false
+                    mode = MODE_ADAPTIVE
+                    updateMode(mode)
+                }
+            }
+            radioLightMode.setOnCheckedChangeListener { _, value ->
+                if (value) {
+                    radioAdaptiveMode.isChecked = false
+                    radioDarkMode.isChecked = false
+                    mode = MODE_LIGHT
+                    updateMode(mode)
+                }
+            }
+            radioDarkMode.setOnCheckedChangeListener { _, value ->
+                if (value) {
+                    radioAdaptiveMode.isChecked = false
+                    radioLightMode.isChecked = false
+                    mode = MODE_DARK
+                    updateMode(mode)
                 }
             }
         }
-        radioLightMode.setOnCheckedChangeListener { _, value ->
-            if (value) {
-                radioAdaptiveMode.isChecked = false
-                radioDarkMode.isChecked = false
-                currentUser.mode = 1
-                database.setUser(currentUser) {
-                    loadTheme(true)
-                }
-            }
+    }
+
+    private fun updateMode(mode: Int) {
+        database.editCurrentUser {
+            it.mode = mode
+            it
         }
-        radioDarkMode.setOnCheckedChangeListener { _, value ->
-            if (value) {
-                radioAdaptiveMode.isChecked = false
-                radioLightMode.isChecked = false
-                currentUser.mode = 2
-                database.setUser(currentUser) {
-                    loadTheme(false)
-                }
-            }
-        }
+        loadTheme()
     }
 
     private fun setupClicks() {
@@ -143,15 +139,7 @@ class AdaptiveActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadTheme(isLight: Boolean) {
-        if (isLight) {
-            useLightTheme()
-        } else {
-            useDarkTheme()
-        }
-    }
-
-    private fun useLightTheme() {
+    override fun useLightTheme() {
         val colorBlack = ContextCompat.getColor(this, R.color.black)
         val colorAccent = ContextCompat.getColor(this, R.color.light_accent)
         val colorGray = ContextCompat.getColor(this, R.color.gray)
@@ -173,9 +161,10 @@ class AdaptiveActivity : AppCompatActivity() {
         textLightMode.setTextColor(colorBlack)
         radioDarkMode.buttonTintList = colorState
         textDarkMode.setTextColor(colorBlack)
+        dialogTheme = R.style.DialogLightTheme
     }
 
-    private fun useDarkTheme() {
+    override fun useDarkTheme() {
         val colorWhite = ContextCompat.getColor(this, R.color.white)
         val colorAccent = ContextCompat.getColor(this, R.color.dark_accent)
         val colorGray = ContextCompat.getColor(this, R.color.gray)
@@ -197,5 +186,6 @@ class AdaptiveActivity : AppCompatActivity() {
         textLightMode.setTextColor(colorWhite)
         radioDarkMode.buttonTintList = colorState
         textDarkMode.setTextColor(colorWhite)
+        dialogTheme = R.style.DialogDarkTheme
     }
 }

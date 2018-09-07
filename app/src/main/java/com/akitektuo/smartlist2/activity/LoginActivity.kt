@@ -1,13 +1,17 @@
 package com.akitektuo.smartlist2.activity
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.adapter.pager.BoardingAdapter
 import com.akitektuo.smartlist2.server.Authentication
 import com.akitektuo.smartlist2.util.Themes.Companion.setLightStatusBar
+import com.akitektuo.smartlist2.util.displayError
 import kotlinx.android.synthetic.main.activity_login.*
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,7 +26,11 @@ class LoginActivity : AppCompatActivity() {
         setupViewPager()
 
         textSignIn.setOnClickListener {
-            authentication.signIn()
+            if (isNetworkAvailable()) {
+                authentication.signIn()
+            } else {
+                layoutLogin.displayError("You seem to be offline, check your internet connection.")
+            }
         }
     }
 
@@ -45,5 +53,11 @@ class LoginActivity : AppCompatActivity() {
         pagerBoarding.setScrollDurationFactor(2.0)
         pagerBoarding.interval = 5000
         pagerBoarding.startAutoScroll(5000)
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 }

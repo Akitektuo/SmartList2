@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.akitektuo.smartlist2.fragment.ListsFragment
-import com.akitektuo.smartlist2.util.Keys.Companion.KEY_OWNER
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_OWNER
 
 /**
  * Created by AoD Akitektuo on 29-Jul-18 at 08:32.

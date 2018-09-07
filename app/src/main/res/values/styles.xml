@@ -4,6 +4,19 @@
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/light_accent</item>
+        <item name="android:colorControlHighlight">@color/gray</item>
+    </style>
+
+    <style name="DialogLightTheme" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/light_accent</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:fontFamily">@font/noto</item>
+    </style>
+
+    <style name="DialogDarkTheme" parent="Base.Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/dark_accent</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:fontFamily">@font/noto</item>
     </style>
 
 </resources>

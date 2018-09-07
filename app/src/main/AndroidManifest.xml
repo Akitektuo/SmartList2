@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.akitektuo.smartlist2">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".SmartList"
         android:allowBackup="true"
@@ -31,7 +34,8 @@
         <activity android:name=".activity.AutoFillActivity" />
         <activity android:name=".activity.RecommendationsActivity" />
         <activity android:name=".activity.CurrencyActivity" />
-        <activity android:name=".activity.StatisticsActivity"></activity>
+        <activity android:name=".activity.StatisticsActivity" />
+        <activity android:name=".activity.ThemeActivity" />
     </application>
 
 </manifest>

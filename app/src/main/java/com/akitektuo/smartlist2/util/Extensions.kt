@@ -1,6 +1,12 @@
 package com.akitektuo.smartlist2.util
 
 import android.content.Context
+import android.graphics.Color
+import android.support.design.widget.Snackbar
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import java.text.SimpleDateFormat
 import java.util.*
@@ -48,6 +54,14 @@ fun Date.getUtcMinutes(): Int {
     return this.get(Calendar.MINUTE, true)
 }
 
+fun Date.getLocalHours(): Int {
+    return this.get(Calendar.HOUR_OF_DAY)
+}
+
+fun Date.getLocalMinutes(): Int {
+    return this.get(Calendar.MINUTE)
+}
+
 fun Date.formatLastDate(): String {
     val now = Date()
     if (now.addDays(-1).time < this.time) {
@@ -72,6 +86,18 @@ fun Date.format(pattern: String, useUtc: Boolean = false): String {
         dateFormat.timeZone = TimeZone.getTimeZone("UTC")
     }
     return dateFormat.format(this)
+}
+
+fun ViewGroup.inflate(layoutRes: Int): View {
+    return LayoutInflater.from(context).inflate(layoutRes, this, false)
+}
+
+fun View.displayError(msg: String) {
+    val bar = Snackbar.make(this, msg, Snackbar.LENGTH_LONG)
+    val view = bar.view.findViewById<TextView>(android.support.design.R.id.snackbar_text)
+    view.setTextColor(Color.WHITE)
+    bar.view.setBackgroundColor(Color.RED)
+    bar.show()
 }
 
 fun turnIntoMilliseconds(hours: Int, minutes: Int): Long {

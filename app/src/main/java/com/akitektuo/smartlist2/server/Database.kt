@@ -1,10 +1,8 @@
 package com.akitektuo.smartlist2.server
 
-import com.akitektuo.smartlist2.util.getUtcHours
-import com.akitektuo.smartlist2.util.getUtcMinutes
-import com.akitektuo.smartlist2.util.turnIntoMilliseconds
+import com.akitektuo.smartlist2.util.Constants.Companion.MODE_ADAPTIVE
+import com.akitektuo.smartlist2.util.Themes
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -17,8 +15,7 @@ import java.util.*
 class Database {
 
     val auth = FirebaseAuth.getInstance()
-    var currentUser: FirebaseUser? = auth.currentUser
-    var currentUserId = currentUser?.uid
+    val theme = Themes()
     private val database = FirebaseDatabase.getInstance().reference
     private var errorHandler: ((String) -> Unit)? = null
 
@@ -29,7 +26,7 @@ class Database {
     data class User(
             val name: String = "",
             val email: String = "",
-            var mode: Int = 0,
+            var mode: Int = MODE_ADAPTIVE,
             var lightStart: Long = 25200000,
             var darkStart: Long = 75600000,
             val recommendations: Boolean = false,
@@ -37,18 +34,7 @@ class Database {
             val preferredCurrency: String = "eur",
             val graphColumns: Int = 7,
             var id: String = ""
-    ) {
-        fun computeThemeForTime(loadTheme: (Boolean) -> Unit) {
-            val deviceTime = Date(System.currentTimeMillis())
-            val deviceHoursAndMinutes = turnIntoMilliseconds(deviceTime.getUtcHours(), deviceTime.getUtcMinutes())
-            if (lightStart < darkStart) {
-                loadTheme(deviceHoursAndMinutes in lightStart..(darkStart - 1))
-            } else {
-                // TODO to be resolved
-                loadTheme(true)
-            }
-        }
-    }
+    )
 
     data class UserList(
             val userId: String = "",
@@ -60,6 +46,7 @@ class Database {
 
     data class List(
             val name: String = "",
+            val timestamp: Long = 0,
             val id: String = ""
     )
 
@@ -160,28 +147,17 @@ class Database {
 
     fun isNewUser(result: (Boolean) -> Unit) {
         getAllUsers { users ->
-            result(users.none { it.id == currentUserId })
+            result(users.none { it.id == auth.currentUser?.uid!! })
         }
     }
 
-    fun createUser() = setUser(User(currentUser?.displayName!!, currentUser?.email!!, id = currentUserId!!))
+    fun createUser() = setUser(User(auth.currentUser?.displayName!!, auth.currentUser?.email!!, id = auth.currentUser?.uid!!))
 
-    fun setUser(user: User, result: () -> Unit = {}) {
+    fun setUser(user: User) {
         if (user.id == "") {
             user.id = databaseUsers.push().key.toString()
         }
-        databaseUsers.child(user.id).setValue(user).addOnCompleteListener {
-            if (it.isSuccessful) {
-                result()
-            } else {
-                onError(it.exception?.message!!)
-            }
-        }
-    }
-
-    fun refreshUser() {
-        currentUser = auth.currentUser
-        currentUserId = currentUser?.uid!!
+        databaseUsers.child(user.id).setValue(user)
     }
 
     fun getUser(id: String, result: (User) -> Unit) {
@@ -202,12 +178,12 @@ class Database {
     }
 
     fun getCurrentUser(result: (User) -> Unit) {
-        getUser(currentUserId!!, result)
+        getUser(auth.currentUser?.uid!!, result)
     }
 
-    fun editCurrentUser(edit: (User) -> User, result: () -> Unit = {}) {
+    fun editCurrentUser(edit: (User) -> User) {
         getCurrentUser {
-            setUser(edit(it), result)
+            setUser(edit(it))
         }
     }
 }
