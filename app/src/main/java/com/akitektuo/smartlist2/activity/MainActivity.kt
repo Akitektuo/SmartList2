@@ -10,7 +10,6 @@ import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.adapter.list.OptionAdapter
 import com.akitektuo.smartlist2.adapter.list.OptionModel
 import com.akitektuo.smartlist2.adapter.pager.ListsAdapter
-import com.akitektuo.smartlist2.util.Themes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_main.*
@@ -98,10 +97,10 @@ class MainActivity : ThemeActivity() {
     }
 
     override fun useLightTheme() {
+        super.useLightTheme()
         val colorBlack = ContextCompat.getColor(this, R.color.black)
         val colorAccent = ContextCompat.getColor(this, R.color.light_accent)
 
-        Themes.setLightStatusBar(this)
         drawerMain.setBackgroundResource(R.color.white)
         textApplicationName.setTextColor(colorBlack)
         imageMenu.setImageResource(R.drawable.ic_light_menu)
@@ -114,10 +113,10 @@ class MainActivity : ThemeActivity() {
     }
 
     override fun useDarkTheme() {
+        super.useDarkTheme()
         val colorWhite = ContextCompat.getColor(this, R.color.white)
         val colorAccent = ContextCompat.getColor(this, R.color.dark_accent)
 
-        Themes.setDarkStatusBar(this)
         drawerMain.setBackgroundResource(R.color.black)
         textApplicationName.setTextColor(colorWhite)
         imageMenu.setImageResource(R.drawable.ic_dark_menu)

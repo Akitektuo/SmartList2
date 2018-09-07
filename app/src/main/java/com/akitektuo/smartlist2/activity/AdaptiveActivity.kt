@@ -145,6 +145,7 @@ class AdaptiveActivity : ThemeActivity() {
     }
 
     override fun useLightTheme() {
+        super.useLightTheme()
         val colorBlack = ContextCompat.getColor(this, R.color.black)
         val colorAccent = ContextCompat.getColor(this, R.color.light_accent)
         val colorGray = ContextCompat.getColor(this, R.color.gray)
@@ -152,8 +153,6 @@ class AdaptiveActivity : ThemeActivity() {
                 arrayOf(intArrayOf(-android.R.attr.state_checked), intArrayOf(android.R.attr.state_checked)),
                 intArrayOf(colorGray, colorAccent)
         )
-
-        Themes.setLightStatusBar(this)
 
         layoutAdaptive.setBackgroundResource(R.color.white)
         textAdaptive.setTextColor(colorBlack)
@@ -170,6 +169,7 @@ class AdaptiveActivity : ThemeActivity() {
     }
 
     override fun useDarkTheme() {
+        super.useDarkTheme()
         val colorWhite = ContextCompat.getColor(this, R.color.white)
         val colorAccent = ContextCompat.getColor(this, R.color.dark_accent)
         val colorGray = ContextCompat.getColor(this, R.color.gray)
@@ -177,8 +177,6 @@ class AdaptiveActivity : ThemeActivity() {
                 arrayOf(intArrayOf(-android.R.attr.state_checked), intArrayOf(android.R.attr.state_checked)),
                 intArrayOf(colorGray, colorAccent)
         )
-
-        Themes.setDarkStatusBar(this)
 
         layoutAdaptive.setBackgroundResource(R.color.black)
         textAdaptive.setTextColor(ContextCompat.getColor(this, R.color.white))

@@ -16,4 +16,5 @@
     <string name="switch_automatically">Switch automatically between modes</string>
     <string name="only_light_mode">Only light mode</string>
     <string name="only_dark_mode">Only dark mode</string>
+    <string name="search_in_categories">Search in categories</string>
 </resources>

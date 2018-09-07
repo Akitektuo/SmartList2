@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?android:attr/selectableItemBackground"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground">
+
 
     <TextView
-        android:id="@+id/textList"
+        android:id="@+id/textName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:fontFamily="@font/noto"
+        android:text="Other"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,32 +22,13 @@
         android:id="@+id/textProducts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/noto"
-        android:textColor="@color/gray"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/textList"
-        app:layout_constraintTop_toBottomOf="@+id/textList" />
-
-    <TextView
-        android:id="@+id/textModifiedDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/noto"
+        android:text="26 products"
         android:textColor="@color/gray"
-        android:textSize="12sp"
-        android:fontFamily="@font/noto"
-        app:layout_constraintBottom_toBottomOf="@+id/textProducts"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textOwner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:fontFamily="@font/noto"
-        app:layout_constraintEnd_toEndOf="@+id/textModifiedDate"
-        app:layout_constraintTop_toTopOf="@+id/textList" />
+        app:layout_constraintBottom_toBottomOf="@+id/textName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textName" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -56,6 +40,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textProducts" />
+        app:layout_constraintTop_toBottomOf="@+id/textName" />
 
 </android.support.constraint.ConstraintLayout>

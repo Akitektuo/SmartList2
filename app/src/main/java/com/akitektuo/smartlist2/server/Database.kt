@@ -7,7 +7,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.util.*
 
 /**
  * Created by AoD Akitektuo on 29-Jul-18 at 16:28.
@@ -89,8 +88,9 @@ class Database {
     )
 
     data class Category(
+            val userId: String = "",
             val name: String = "",
-            val id: String = ""
+            var id: String = ""
     )
 
     data class UserExcel(
@@ -151,7 +151,10 @@ class Database {
         }
     }
 
-    fun createUser() = setUser(User(auth.currentUser?.displayName!!, auth.currentUser?.email!!, id = auth.currentUser?.uid!!))
+    fun createUser() {
+        setUser(User(auth.currentUser?.displayName!!, auth.currentUser?.email!!, id = auth.currentUser?.uid!!))
+        setCategory(Category(auth.currentUser?.uid!!, "Other"))
+    }
 
     fun setUser(user: User) {
         if (user.id == "") {
@@ -185,5 +188,44 @@ class Database {
         getCurrentUser {
             setUser(edit(it))
         }
+    }
+
+    fun setCategory(category: Category) {
+        if (category.id == "") {
+            category.id = databaseCategories.push().key.toString()
+        }
+        databaseCategories.child(category.id).setValue(category)
+    }
+
+    fun searchCategories(search: String, result: (ArrayList<Category>) -> Unit) {
+        databaseCategories.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                onError(error.message)
+            }
+
+            override fun onDataChange(data: DataSnapshot) {
+                val categories = ArrayList<Category>()
+                data.children.mapNotNullTo(categories) {
+                    it.getValue(Category::class.java)
+                }
+                result(categories.filter { it.userId == auth.currentUser?.uid && it.name.contains(search, true) } as ArrayList<Category>)
+            }
+        })
+    }
+
+    fun getProducts(categoryId: String, result: (ArrayList<Product>) -> Unit) {
+        databaseProducts.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                onError(error.message)
+            }
+
+            override fun onDataChange(data: DataSnapshot) {
+                val products = ArrayList<Product>()
+                data.children.mapNotNullTo(products) {
+                    it.getValue(Product::class.java)
+                }
+                result(products.filter { it.userId == auth.currentUser?.uid && it.categoryId == categoryId } as ArrayList<Product>)
+            }
+        })
     }
 }

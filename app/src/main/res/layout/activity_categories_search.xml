@@ -12,15 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:fontFamily="@font/noto"
-        android:text="@string/categories"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        app:layout_constraintBottom_toBottomOf="@+id/imageBack"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageBack"
-        app:layout_constraintTop_toTopOf="@+id/imageBack" />
+        tools:layout_editor_absoluteY="24dp" />
 
     <ImageView
         android:id="@+id/imageBack"
@@ -28,9 +22,6 @@
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
         android:padding="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,51 +30,39 @@
         android:id="@+id/imageCancelSearch"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
         android:padding="4dp"
-        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/editSearch"
         android:layout_width="192dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/search_in_categories"
-        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageBack"
         app:layout_constraintEnd_toStartOf="@+id/imageCancelSearch"
         app:layout_constraintStart_toEndOf="@+id/imageBack"
-        app:met_floatingLabel="highlight"
-        app:met_textColorHint="@color/gray" />
+        app:layout_constraintTop_toTopOf="@+id/imageBack" />
 
     <ImageView
         android:id="@+id/imageAdd"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
         android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageSearch"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
         android:padding="4dp"
-        app:layout_constraintEnd_toStartOf="@id/imageAdd"
+        app:layout_constraintEnd_toEndOf="@+id/imageAdd"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView

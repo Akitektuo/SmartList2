@@ -3,6 +3,7 @@ package com.akitektuo.smartlist2.activity
 import android.support.v7.app.AppCompatActivity
 import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.util.Constants
+import com.akitektuo.smartlist2.util.Themes
 
 open class ThemeActivity : AppCompatActivity() {
 
@@ -30,9 +31,13 @@ open class ThemeActivity : AppCompatActivity() {
         }
     }
 
-    internal open fun useLightTheme() {}
+    internal open fun useLightTheme() {
+        Themes.setLightStatusBar(this)
+    }
 
-    internal open fun useDarkTheme() {}
+    internal open fun useDarkTheme() {
+        Themes.setDarkStatusBar(this)
+    }
 
     internal open fun setupWithTheme(isLight: Boolean) {
         loadTheme()

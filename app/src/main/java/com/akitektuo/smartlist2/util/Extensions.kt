@@ -1,11 +1,14 @@
 package com.akitektuo.smartlist2.util
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import java.text.SimpleDateFormat
@@ -104,4 +107,13 @@ fun turnIntoMilliseconds(hours: Int, minutes: Int): Long {
     val oneMinute = 60000
     val oneHour = 60 * oneMinute
     return (oneHour * hours + oneMinute * minutes).toLong()
+}
+
+fun Activity.hideKeyboard() {
+    val view = currentFocus ?: View(this)
+    (getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun EditText.showKeyboard(context: Context) {
+    (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
