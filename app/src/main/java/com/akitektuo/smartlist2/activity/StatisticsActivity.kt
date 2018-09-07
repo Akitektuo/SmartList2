@@ -21,6 +21,6 @@ class StatisticsActivity : AppCompatActivity() {
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_right)
     }
 }

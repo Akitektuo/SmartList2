@@ -28,31 +28,17 @@ class MainActivity : ThemeActivity() {
             finish()
             return
         }
-
-        with(database.theme) {
-            if (isSet()) {
-                setupDrawer()
-                setupLists()
-                return
-            }
-            database.getCurrentUser {
-                mode = it.mode
-                lightStart = it.lightStart
-                darkStart = it.darkStart
-                loadTheme()
-                setupDrawer()
-                setupLists()
-                repopulateOptions()
-            }
-        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (!database.theme.isSet()) {
-            return
-        }
-        loadTheme()
+    override fun setupWithTheme(isLight: Boolean) {
+        super.setupWithTheme(isLight)
+        setupDrawer()
+        setupLists()
+        repopulateOptions()
+    }
+
+    override fun refreshActivity() {
+        super.refreshActivity()
         repopulateOptions()
     }
 
@@ -100,7 +86,7 @@ class MainActivity : ThemeActivity() {
     private fun startActivity(cls: Class<*>) {
         drawerMain.closeDrawer(Gravity.START)
         startActivity(Intent(this, cls))
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        overridePendingTransition(R.anim.slide_in_right, android.R.anim.fade_out)
     }
 
     private fun setupLists() {

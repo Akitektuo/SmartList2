@@ -22,19 +22,24 @@ class AdaptiveActivity : ThemeActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adaptive)
+
+        setupClicks()
+    }
+
+    override fun setupWithTheme(isLight: Boolean) {
+        super.setupWithTheme(isLight)
+
         loadDataForCurrentUser()
         setupChecks()
-        setupClicks()
     }
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_right)
     }
 
     private fun loadDataForCurrentUser() {
         with(database.theme) {
-            loadTheme()
             var lightDate = Date(lightStart)
             var darkDate = Date(darkStart)
             when (mode) {
