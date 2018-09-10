@@ -20,6 +20,7 @@ class CategoriesActivity : ThemeActivity() {
 
     private val constraintSet = ConstraintSet()
     private val adapter = CategoryAdapter()
+    private var searchText = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +47,11 @@ class CategoriesActivity : ThemeActivity() {
         listCategories.adapter = adapter
         editSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(text: Editable?) {
-                repopulateCategories()
+                val searchText = text.toString()
+                if (this@CategoriesActivity.searchText != searchText) {
+                    repopulateCategories()
+                    this@CategoriesActivity.searchText = searchText
+                }
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -61,6 +66,8 @@ class CategoriesActivity : ThemeActivity() {
     override fun setupWithTheme(isLight: Boolean) {
         super.setupWithTheme(isLight)
         repopulateCategories()
+        editSearch.setText("")
+        hideKeyboard()
     }
 
     override fun refreshActivity() {
@@ -69,8 +76,8 @@ class CategoriesActivity : ThemeActivity() {
     }
 
     private fun repopulateCategories() {
-        adapter.clear()
         database.searchCategories(editSearch.text.toString()) { categories ->
+            adapter.clear()
             categories.forEach { category ->
                 database.getProducts(category.id) {
                     adapter.add(CategoryModel(category.name, it.size) {

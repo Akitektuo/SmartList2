@@ -7,8 +7,11 @@ import com.akitektuo.smartlist2.util.Themes
 
 open class ThemeActivity : AppCompatActivity() {
 
+    private var shouldRefresh = false
+
     override fun onStart() {
         super.onStart()
+        shouldRefresh = false
         with(database.theme) {
             if (isSet()) {
                 setupWithTheme(isLight())
@@ -49,9 +52,10 @@ open class ThemeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (database.theme.isSet()) {
+        if (database.theme.isSet() && shouldRefresh) {
             refreshActivity()
         }
+        shouldRefresh = true
     }
 
     override fun onDestroy() {
