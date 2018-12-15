@@ -18,12 +18,12 @@ class SplashActivity : AppCompatActivity() {
             with(database.theme) {
                 loadTheme(it)
                 setupTheme()
+                Handler().postDelayed({
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                    finish()
+                }, 100)
             }
         }
-        Handler().postDelayed({
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }, 1000)
     }
 }
