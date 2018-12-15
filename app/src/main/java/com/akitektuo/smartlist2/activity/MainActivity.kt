@@ -2,7 +2,6 @@ package com.akitektuo.smartlist2.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import com.akitektuo.smartlist2.R
@@ -27,17 +26,9 @@ class MainActivity : ThemeActivity() {
             finish()
             return
         }
-    }
 
-    override fun setupWithTheme(isLight: Boolean) {
-        super.setupWithTheme(isLight)
         setupDrawer()
         setupLists()
-        repopulateOptions()
-    }
-
-    override fun refreshActivity() {
-        super.refreshActivity()
         repopulateOptions()
     }
 
@@ -86,6 +77,7 @@ class MainActivity : ThemeActivity() {
         drawerMain.closeDrawer(Gravity.START)
         startActivity(Intent(this, cls))
         overridePendingTransition(R.anim.slide_in_right, android.R.anim.fade_out)
+        finish()
     }
 
     private fun setupLists() {
@@ -94,38 +86,6 @@ class MainActivity : ThemeActivity() {
         fragmentsLists.add("Shared with me", false)
         pagerLists.adapter = fragmentsLists
         tabLists.setupWithViewPager(pagerLists)
-    }
-
-    override fun useLightTheme() {
-        super.useLightTheme()
-        val colorBlack = ContextCompat.getColor(this, R.color.black)
-        val colorAccent = ContextCompat.getColor(this, R.color.light_accent)
-
-        drawerMain.setBackgroundResource(R.color.white)
-        textApplicationName.setTextColor(colorBlack)
-        imageMenu.setImageResource(R.drawable.ic_light_menu)
-        imageAdd.setImageResource(R.drawable.light_add)
-        tabLists.setTabTextColors(colorBlack, colorAccent)
-        tabLists.setSelectedTabIndicatorColor(colorAccent)
-
-        imageDrawerBackground.setImageResource(R.drawable.drawer_light_background)
-        listOptions.setBackgroundResource(R.color.white)
-    }
-
-    override fun useDarkTheme() {
-        super.useDarkTheme()
-        val colorWhite = ContextCompat.getColor(this, R.color.white)
-        val colorAccent = ContextCompat.getColor(this, R.color.dark_accent)
-
-        drawerMain.setBackgroundResource(R.color.black)
-        textApplicationName.setTextColor(colorWhite)
-        imageMenu.setImageResource(R.drawable.ic_dark_menu)
-        imageAdd.setImageResource(R.drawable.dark_add)
-        tabLists.setTabTextColors(colorWhite, colorAccent)
-        tabLists.setSelectedTabIndicatorColor(colorAccent)
-
-        imageDrawerBackground.setImageResource(R.drawable.drawer_dark_background)
-        listOptions.setBackgroundResource(R.color.black)
     }
 
 }

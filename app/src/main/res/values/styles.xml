@@ -19,4 +19,60 @@
         <item name="android:fontFamily">@font/noto</item>
     </style>
 
+    <style name="ActivityTheme.Primary.Base.Light" parent="Theme.AppCompat.NoActionBar">
+        <item name="primaryTextColor">@color/black</item>
+        <item name="secondaryTextColor">@color/gray</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="accentColor">@color/light_accent</item>
+        <item name="backgroundDrawer">@drawable/drawer_light_background</item>
+        <item name="iconAdd">@drawable/light_add</item>
+        <item name="iconBack">@drawable/light_back</item>
+        <item name="iconChart">@drawable/light_chart</item>
+        <item name="iconCheck">@drawable/light_check</item>
+        <item name="iconList">@drawable/light_list</item>
+        <item name="iconCamera">@drawable/ic_light_camera</item>
+        <item name="iconCancel">@drawable/ic_light_cancel</item>
+        <item name="iconFolder">@drawable/ic_light_folder</item>
+        <item name="iconMenu">@drawable/ic_light_menu</item>
+        <item name="iconSearch">@drawable/ic_light_search</item>
+        <item name="iconShare">@drawable/ic_light_share</item>
+        <item name="iconSheets">@drawable/ic_light_sheets</item>
+        <item name="iconTime">@drawable/ic_light_time</item>
+    </style>
+
+    <style name="ActivityTheme.Primary.Base.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="primaryTextColor">@color/white</item>
+        <item name="secondaryTextColor">@color/gray</item>
+        <item name="backgroundColor">@color/black</item>
+        <item name="accentColor">@color/dark_accent</item>
+        <item name="backgroundDrawer">@drawable/drawer_dark_background</item>
+        <item name="iconAdd">@drawable/dark_add</item>
+        <item name="iconBack">@drawable/dark_back</item>
+        <item name="iconChart">@drawable/dark_chart</item>
+        <item name="iconCheck">@drawable/dark_check</item>
+        <item name="iconList">@drawable/dark_list</item>
+        <item name="iconCamera">@drawable/ic_dark_camera</item>
+        <item name="iconCancel">@drawable/ic_dark_cancel</item>
+        <item name="iconFolder">@drawable/ic_dark_folder</item>
+        <item name="iconMenu">@drawable/ic_dark_menu</item>
+        <item name="iconSearch">@drawable/ic_dark_search</item>
+        <item name="iconShare">@drawable/ic_dark_share</item>
+        <item name="iconSheets">@drawable/ic_dark_sheets</item>
+        <item name="iconTime">@drawable/ic_dark_time</item>
+    </style>
+
+    <style name="AppTheme.Light" parent="ActivityTheme.Primary.Base.Light">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/light_accent</item>
+        <item name="android:colorControlHighlight">@color/gray</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="ActivityTheme.Primary.Base.Dark">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/dark_accent</item>
+        <item name="android:colorControlHighlight">@color/gray</item>
+    </style>
+
 </resources>

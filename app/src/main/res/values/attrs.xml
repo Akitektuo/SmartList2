@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppTheme">
+        <attr name="primaryTextColor" format="color" />
+        <attr name="secondaryTextColor" format="color" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="accentColor" format="color" />
+        <attr name="iconAdd" format="integer" />
+        <attr name="iconBack" format="integer" />
+        <attr name="iconChart" format="integer" />
+        <attr name="iconCheck" format="integer" />
+        <attr name="iconList" format="integer" />
+        <attr name="backgroundDrawer" format="integer" />
+        <attr name="iconCamera" format="integer" />
+        <attr name="iconCancel" format="integer" />
+        <attr name="iconFolder" format="integer" />
+        <attr name="iconMenu" format="integer" />
+        <attr name="iconSearch" format="integer" />
+        <attr name="iconShare" format="integer" />
+        <attr name="iconSheets" format="integer" />
+        <attr name="iconTime" format="integer" />
+    </declare-styleable>
+</resources>

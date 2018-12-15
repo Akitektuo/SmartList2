@@ -1,66 +1,30 @@
 package com.akitektuo.smartlist2.activity
 
+import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.akitektuo.smartlist2.SmartList.Companion.database
-import com.akitektuo.smartlist2.util.Constants
+import android.support.v7.app.AppCompatDelegate
+import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.util.Themes
 
 open class ThemeActivity : AppCompatActivity() {
 
-    private var shouldRefresh = false
+    var dialogTheme = 0
 
-    override fun onStart() {
-        super.onStart()
-        shouldRefresh = false
-        with(database.theme) {
-            if (isSet()) {
-                setupWithTheme(isLight())
-                return
-            }
-            database.getCurrentUser {
-                mode = it.mode
-                lightStart = it.lightStart
-                darkStart = it.darkStart
-                setupWithTheme(isLight())
-            }
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        applyTheme()
+        super.onCreate(savedInstanceState)
     }
 
-    internal fun loadTheme() {
-        if (database.theme.isLight()) {
-            useLightTheme()
+    private fun applyTheme() {
+        dialogTheme = if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+            setTheme(R.style.AppTheme_Light)
+            Themes.setLightStatusBar(this)
+            R.style.DialogLightTheme
         } else {
-            useDarkTheme()
+            setTheme(R.style.AppTheme_Dark)
+            Themes.setDarkStatusBar(this)
+            R.style.DialogDarkTheme
         }
-    }
-
-    internal open fun useLightTheme() {
-        Themes.setLightStatusBar(this)
-    }
-
-    internal open fun useDarkTheme() {
-        Themes.setDarkStatusBar(this)
-    }
-
-    internal open fun setupWithTheme(isLight: Boolean) {
-        loadTheme()
-    }
-
-    internal open fun refreshActivity() {
-        loadTheme()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (database.theme.isSet() && shouldRefresh) {
-            refreshActivity()
-        }
-        shouldRefresh = true
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        database.theme.mode = Constants.NOT_SET
     }
 
 }

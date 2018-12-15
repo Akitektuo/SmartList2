@@ -17,4 +17,5 @@
     <string name="only_light_mode">Only light mode</string>
     <string name="only_dark_mode">Only dark mode</string>
     <string name="search_in_categories">Search in categories</string>
+    <string name="loading_data">Personalizing your experience&#8230;</string>
 </resources>

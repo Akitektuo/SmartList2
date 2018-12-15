@@ -2,12 +2,12 @@ package com.akitektuo.smartlist2.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.akitektuo.smartlist2.R
-import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.adapter.list.ListModel
 import com.akitektuo.smartlist2.adapter.list.ListsAdapter
 import com.akitektuo.smartlist2.util.addDays
@@ -28,11 +28,15 @@ class ListsFragment : Fragment() {
         listLists.layoutManager = LinearLayoutManager(context)
         listLists.adapter = adapter
         swipeRefreshLists.setOnRefreshListener { repopulateList() }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        loadTheme()
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+            swipeRefreshLists.setProgressBackgroundColorSchemeResource(R.color.white)
+            swipeRefreshLists.setColorSchemeResources(R.color.light_accent)
+        } else {
+            swipeRefreshLists.setProgressBackgroundColorSchemeResource(R.color.black)
+            swipeRefreshLists.setColorSchemeResources(R.color.dark_accent)
+        }
+
         repopulateList()
     }
 
@@ -44,16 +48,6 @@ class ListsFragment : Fragment() {
             })
         }
         swipeRefreshLists.isRefreshing = false
-    }
-
-    private fun loadTheme() {
-        if (database.theme.isLight()) {
-            swipeRefreshLists.setProgressBackgroundColorSchemeResource(R.color.white)
-            swipeRefreshLists.setColorSchemeResources(R.color.light_accent)
-        } else {
-            swipeRefreshLists.setProgressBackgroundColorSchemeResource(R.color.black)
-            swipeRefreshLists.setColorSchemeResources(R.color.dark_accent)
-        }
     }
 
 }

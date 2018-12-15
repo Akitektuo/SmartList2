@@ -1,8 +1,8 @@
 package com.akitektuo.smartlist2.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.constraint.ConstraintSet
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -28,6 +28,10 @@ class CategoriesActivity : ThemeActivity() {
 
         imageBack.setOnClickListener {
             finish()
+        }
+        imageAdd.setOnClickListener {
+            startActivity(Intent(this, AddCategoryActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_right, android.R.anim.fade_out)
         }
         imageSearch.setOnClickListener {
             showSearch()
@@ -61,17 +65,6 @@ class CategoriesActivity : ThemeActivity() {
             }
 
         })
-    }
-
-    override fun setupWithTheme(isLight: Boolean) {
-        super.setupWithTheme(isLight)
-        repopulateCategories()
-        editSearch.setText("")
-        hideKeyboard()
-    }
-
-    override fun refreshActivity() {
-        super.refreshActivity()
         repopulateCategories()
     }
 
@@ -88,39 +81,10 @@ class CategoriesActivity : ThemeActivity() {
         }
     }
 
-    override fun useLightTheme() {
-        super.useLightTheme()
-        val colorBlack = ContextCompat.getColor(this, R.color.black)
-        val colorAccent = ContextCompat.getColor(this, R.color.light_accent)
-
-        layoutCategory.setBackgroundResource(R.color.white)
-        textCategories.setTextColor(colorBlack)
-        imageBack.setImageResource(R.drawable.light_back)
-        imageCancelSearch.setImageResource(R.drawable.ic_light_cancel)
-        editSearch.setPrimaryColor(colorAccent)
-        editSearch.setMetTextColor(colorBlack)
-        imageAdd.setImageResource(R.drawable.light_add)
-        imageSearch.setImageResource(R.drawable.ic_light_search)
-    }
-
-    override fun useDarkTheme() {
-        super.useDarkTheme()
-        val colorWhite = ContextCompat.getColor(this, R.color.white)
-        val colorAccent = ContextCompat.getColor(this, R.color.dark_accent)
-
-        layoutCategory.setBackgroundResource(R.color.black)
-        textCategories.setTextColor(colorWhite)
-        imageBack.setImageResource(R.drawable.dark_back)
-        imageCancelSearch.setImageResource(R.drawable.ic_dark_cancel)
-        editSearch.setPrimaryColor(colorAccent)
-        editSearch.setMetTextColor(colorWhite)
-        imageAdd.setImageResource(R.drawable.dark_add)
-        imageSearch.setImageResource(R.drawable.ic_dark_search)
-    }
-
     override fun finish() {
-        super.finish()
+        startActivity(Intent(this, MainActivity::class.java))
         overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_right)
+        super.finish()
     }
 
     private fun showSearch() {

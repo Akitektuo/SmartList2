@@ -1,13 +1,11 @@
 package com.akitektuo.smartlist2.adapter.list
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.akitektuo.smartlist2.R
-import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.util.inflate
 
 data class CategoryModel(val name: String, val products: Int, val onClick: () -> Unit)
@@ -26,11 +24,6 @@ class CategoryViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         }
         view.setOnClickListener {
             onClick()
-        }
-        if (database.theme.isLight()) {
-            textName.setTextColor(ContextCompat.getColor(context, R.color.black))
-        } else {
-            textName.setTextColor(ContextCompat.getColor(context, R.color.white))
         }
     }
 }

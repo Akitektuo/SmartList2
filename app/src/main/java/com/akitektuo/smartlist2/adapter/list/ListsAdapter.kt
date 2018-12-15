@@ -1,13 +1,11 @@
 package com.akitektuo.smartlist2.adapter.list
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.akitektuo.smartlist2.R
-import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.util.formatLastDate
 import com.akitektuo.smartlist2.util.inflate
 import java.util.*
@@ -28,15 +26,6 @@ class ListViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         textOwner.text = owner
         view.setOnClickListener {
             onClick()
-        }
-        if (database.theme.isLight()) {
-            val colorBlack = ContextCompat.getColor(context, R.color.black)
-            textList.setTextColor(colorBlack)
-            textOwner.setTextColor(colorBlack)
-        } else {
-            val colorWhite = ContextCompat.getColor(context, R.color.white)
-            textList.setTextColor(colorWhite)
-            textOwner.setTextColor(colorWhite)
         }
     }
 }

@@ -3,8 +3,10 @@ package com.akitektuo.smartlist2.util
 import android.app.Activity
 import android.os.Build
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatDelegate
 import android.view.View
 import com.akitektuo.smartlist2.R
+import com.akitektuo.smartlist2.server.Database
 import com.akitektuo.smartlist2.util.Constants.Companion.MODE_ADAPTIVE
 import com.akitektuo.smartlist2.util.Constants.Companion.MODE_DARK
 import com.akitektuo.smartlist2.util.Constants.Companion.MODE_LIGHT
@@ -44,7 +46,13 @@ class Themes {
 
     fun isSet() = mode != NOT_SET
 
-    fun isLight(): Boolean {
+    fun loadTheme(user: Database.User) {
+        mode = user.mode
+        darkStart = user.darkStart
+        lightStart = user.lightStart
+    }
+
+    private fun isLight(): Boolean {
         return when (mode) {
             MODE_ADAPTIVE -> {
                 val deviceTime = Date(System.currentTimeMillis())
@@ -59,6 +67,14 @@ class Themes {
             MODE_DARK -> false
             else -> true
         }
+    }
+
+    fun setupTheme() {
+        AppCompatDelegate.setDefaultNightMode(if (isLight()) {
+            AppCompatDelegate.MODE_NIGHT_NO
+        } else {
+            AppCompatDelegate.MODE_NIGHT_YES
+        })
     }
 
 }

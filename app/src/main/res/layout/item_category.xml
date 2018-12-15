@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground">
 
-
     <TextView
         android:id="@+id/textName"
         android:layout_width="wrap_content"
@@ -13,7 +12,7 @@
         android:layout_margin="16dp"
         android:fontFamily="@font/noto"
         android:text="Other"
-        android:textColor="@color/black"
+        android:textColor="?attr/primaryTextColor"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +24,7 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/noto"
         android:text="26 products"
-        android:textColor="@color/gray"
+        android:textColor="?attr/secondaryTextColor"
         app:layout_constraintBottom_toBottomOf="@+id/textName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textName" />
@@ -36,7 +35,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:src="@color/gray"
+        android:src="?attr/secondaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

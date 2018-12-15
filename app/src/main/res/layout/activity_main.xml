@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerMain"
+    android:background="?attr/backgroundColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
@@ -21,7 +22,7 @@
             android:layout_margin="8dp"
             android:fontFamily="@font/noto"
             android:text="@string/app_name"
-            android:textColor="@color/black"
+            android:textColor="?attr/primaryTextColor"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/imageAdd"
@@ -39,7 +40,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="4dp"
-            android:src="@drawable/ic_light_menu"
+            android:src="?attr/iconMenu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +54,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="4dp"
-            android:src="@drawable/light_add"
+            android:src="?attr/iconAdd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,6 +70,9 @@
             app:tabGravity="fill"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed"
+            app:tabIndicatorColor="?attr/accentColor"
+            app:tabSelectedTextColor="?attr/accentColor"
+            app:tabTextColor="?attr/primaryTextColor"
             app:tabRippleColor="@color/gray" />
 
         <android.support.v4.view.ViewPager
@@ -85,12 +89,12 @@
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/white">
+        android:layout_gravity="start">
 
         <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
+            android:background="?attr/backgroundColor"
             android:layout_height="match_parent">
 
             <ImageView
@@ -98,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="176dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/drawer_light_background"
+                android:src="?attr/backgroundDrawer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
