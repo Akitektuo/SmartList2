@@ -21,12 +21,6 @@ class MainActivity : ThemeActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (!database.isUserSignedIn()) {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-            return
-        }
-
         setupDrawer()
         setupLists()
         repopulateOptions()

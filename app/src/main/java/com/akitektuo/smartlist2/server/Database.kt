@@ -1,5 +1,6 @@
 package com.akitektuo.smartlist2.server
 
+import com.akitektuo.smartlist2.activity.CategoryWithProducts
 import com.akitektuo.smartlist2.util.Constants.Companion.MODE_ADAPTIVE
 import com.akitektuo.smartlist2.util.Themes
 import com.google.firebase.auth.FirebaseAuth
@@ -75,8 +76,8 @@ class Database {
     data class Product(
             val userId: String = "",
             val name: String = "",
-            val categoryId: String = "",
-            val id: String = ""
+            var categoryId: String = "",
+            var id: String = ""
     )
 
     data class Prices(
@@ -129,6 +130,8 @@ class Database {
 
     fun signOut() = auth.signOut()
 
+    fun getCurrentUserId() = auth.currentUser?.uid!!
+
     fun getAllUsers(result: (ArrayList<User>) -> Unit) {
         databaseUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
@@ -156,11 +159,12 @@ class Database {
         setCategory(Category(auth.currentUser?.uid!!, "Other"))
     }
 
-    fun setUser(user: User) {
+    fun setUser(user: User): User {
         if (user.id == "") {
             user.id = databaseUsers.push().key.toString()
         }
         databaseUsers.child(user.id).setValue(user)
+        return user
     }
 
     fun getUser(id: String, result: (User) -> Unit) {
@@ -190,11 +194,20 @@ class Database {
         }
     }
 
-    fun setCategory(category: Category) {
+    fun setCategory(category: Category): Category {
         if (category.id == "") {
             category.id = databaseCategories.push().key.toString()
         }
         databaseCategories.child(category.id).setValue(category)
+        return category
+    }
+
+    fun setProduct(product: Product): Product {
+        if (product.id == "") {
+            product.id = databaseProducts.push().key.toString()
+        }
+        databaseProducts.child(product.id).setValue(product)
+        return product
     }
 
     fun searchCategories(search: String, result: (ArrayList<Category>) -> Unit) {
@@ -209,6 +222,38 @@ class Database {
                     it.getValue(Category::class.java)
                 }
                 result(categories.filter { it.userId == auth.currentUser?.uid && it.name.contains(search, true) } as ArrayList<Category>)
+            }
+        })
+    }
+
+    fun getCategories(result: (ArrayList<Category>) -> Unit) {
+        databaseCategories.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                onError(error.message)
+            }
+
+            override fun onDataChange(data: DataSnapshot) {
+                val categories = ArrayList<Category>()
+                data.children.mapNotNullTo(categories) {
+                    it.getValue(Category::class.java)
+                }
+                result(categories.filter { it.userId == auth.currentUser?.uid } as ArrayList<Category>)
+            }
+        })
+    }
+
+    fun getProducts(result: (ArrayList<Product>) -> Unit) {
+        databaseProducts.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                onError(error.message)
+            }
+
+            override fun onDataChange(data: DataSnapshot) {
+                val products = ArrayList<Product>()
+                data.children.mapNotNullTo(products) {
+                    it.getValue(Product::class.java)
+                }
+                result(products.filter { it.userId == auth.currentUser?.uid } as ArrayList<Product>)
             }
         })
     }
@@ -228,4 +273,44 @@ class Database {
             }
         })
     }
+
+    fun getProduct(id: String, result: (Product) -> Unit) {
+        databaseProducts.child(id).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                onError(error.message)
+            }
+
+            override fun onDataChange(data: DataSnapshot) {
+                result(data.getValue(Product::class.java) ?: Product())
+            }
+        })
+    }
+
+    fun searchCategoriesAndProducts(search: String, result: (ArrayList<CategoryWithProducts>) -> Unit) {
+        getCategories { categories ->
+            getProducts { products ->
+                val categoriesWithItems = ArrayList<CategoryWithProducts>()
+                val filteredProducts = (products.filter { it.name.contains(search, true) } as ArrayList<Product>)
+                categories.filter { category ->
+                    (category.name.contains(search, true) ||
+                            filteredProducts.any { it.categoryId == category.id }) &&
+                            products.any { it.categoryId == category.id }
+                }.forEach { category ->
+                    if (filteredProducts.none { it.categoryId == category.id }) {
+                        categoriesWithItems.add(CategoryWithProducts(category, products.filter { it.categoryId == category.id } as ArrayList<Product>))
+                    } else {
+                        categoriesWithItems.add(CategoryWithProducts(category, filteredProducts.filter { it.categoryId == category.id } as ArrayList<Product>))
+                    }
+                }
+                result(categoriesWithItems)
+            }
+        }
+    }
+
+    fun editProduct(id: String, edit: (Product) -> Product) {
+        getProduct(id) {
+            setProduct(edit(it))
+        }
+    }
+
 }

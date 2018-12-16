@@ -7,8 +7,11 @@ import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import java.text.SimpleDateFormat
@@ -116,4 +119,14 @@ fun Activity.hideKeyboard() {
 
 fun EditText.showKeyboard(context: Context) {
     (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
+
+fun ImageView.rotate(reverse: Boolean = false) {
+    val rotateAnim = if (reverse) {
+        RotateAnimation(180f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+    } else {
+        RotateAnimation(180f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+    }
+    rotateAnim.duration = 600
+    this.animation = rotateAnim
 }

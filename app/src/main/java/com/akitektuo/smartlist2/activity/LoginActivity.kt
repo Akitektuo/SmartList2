@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         authentication.processResult(requestCode, data) {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, SplashActivity::class.java))
             finish()
         }
     }

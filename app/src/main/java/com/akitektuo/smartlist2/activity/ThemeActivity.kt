@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import com.akitektuo.smartlist2.R
+import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.util.Themes
 
 open class ThemeActivity : AppCompatActivity() {
@@ -16,6 +17,11 @@ open class ThemeActivity : AppCompatActivity() {
     }
 
     private fun applyTheme() {
+        with(database.theme) {
+            if (!isSet()) {
+                restoreTheme(this@ThemeActivity)
+            }
+        }
         dialogTheme = if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
             setTheme(R.style.AppTheme_Light)
             Themes.setLightStatusBar(this)

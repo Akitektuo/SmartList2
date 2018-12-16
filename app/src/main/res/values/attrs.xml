@@ -19,5 +19,6 @@
         <attr name="iconShare" format="integer" />
         <attr name="iconSheets" format="integer" />
         <attr name="iconTime" format="integer" />
+        <attr name="iconExpand" format="integer" />
     </declare-styleable>
 </resources>

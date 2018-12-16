@@ -1,12 +1,16 @@
 package com.akitektuo.smartlist2.util
 
 import android.app.Activity
+import android.content.Context
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatDelegate
 import android.view.View
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.server.Database
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_DARK_START
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_LIGHT_START
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_MODE
 import com.akitektuo.smartlist2.util.Constants.Companion.MODE_ADAPTIVE
 import com.akitektuo.smartlist2.util.Constants.Companion.MODE_DARK
 import com.akitektuo.smartlist2.util.Constants.Companion.MODE_LIGHT
@@ -75,6 +79,24 @@ class Themes {
         } else {
             AppCompatDelegate.MODE_NIGHT_YES
         })
+    }
+
+    fun saveInMemory(context: Context) {
+        val preferences = Preferences(context)
+        with(preferences) {
+            set(KEY_MODE, mode)
+            set(KEY_LIGHT_START, lightStart)
+            set(KEY_DARK_START, darkStart)
+        }
+    }
+
+    fun restoreTheme(context: Context) {
+        val preferences = Preferences(context)
+        with(preferences) {
+            mode = getInt(KEY_MODE)
+            lightStart = getLong(KEY_LIGHT_START)
+            darkStart = getLong(KEY_DARK_START)
+        }
     }
 
 }

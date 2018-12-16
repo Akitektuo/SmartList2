@@ -18,4 +18,10 @@
     <string name="only_dark_mode">Only dark mode</string>
     <string name="search_in_categories">Search in categories</string>
     <string name="loading_data">Personalizing your experience&#8230;</string>
+    <string name="add_category">Add Category</string>
+    <string name="search_category_item">Search a category or an product</string>
+    <string name="category_name">Category name</string>
+    <string name="move_products">Move products from other categories</string>
+    <string name="no_categories_products">No categories or products found\u00A0</string>
+    <string name="no_categories_for">No categories contain \"%1$s\"</string>
 </resources>

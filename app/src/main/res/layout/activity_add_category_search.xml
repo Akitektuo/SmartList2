@@ -2,9 +2,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutAddCategory"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layoutAddCategory"
     android:background="?attr/backgroundColor"
     tools:context=".activity.AddCategoryActivity">
 
@@ -14,11 +14,6 @@
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="4dp"
-        android:src="?attr/iconBack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,11 +23,6 @@
         android:layout_height="36dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="4dp"
-        android:src="?attr/iconCheck"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,11 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:layout_marginStart="8dp"
-        android:fontFamily="@font/noto"
-        android:text="@string/add_category"
-        android:textColor="?attr/primaryTextColor"
-        android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageBack"
         app:layout_constraintStart_toEndOf="@+id/imageBack"
         app:layout_constraintTop_toTopOf="@+id/imageBack" />
@@ -57,15 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:hint="@string/category_name"
-        android:imeOptions="flagNoExtractUi|actionNone"
-        android:inputType="textCapSentences"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageBack"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="?attr/colorAccent"
-        app:met_textColor="?attr/primaryTextColor"
-        app:met_textColorHint="@color/gray" />
+        app:layout_constraintTop_toBottomOf="@+id/imageBack" />
 
     <TextView
         android:id="@+id/textMoveProducts"
@@ -73,10 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/noto"
-        android:text="@string/move_products"
-        android:textColor="?attr/primaryTextColor"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editCategoryName" />
 
@@ -84,14 +58,11 @@
         android:id="@+id/imageSearch"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
+        android:layout_marginEnd="8dp"
         android:padding="4dp"
-        android:src="?attr/iconSearch"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/textMoveProducts"
-        app:layout_constraintStart_toEndOf="@+id/textMoveProducts"
+        app:layout_constraintEnd_toEndOf="@+id/textMoveProducts"
         app:layout_constraintTop_toTopOf="@+id/textMoveProducts" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -99,54 +70,36 @@
         android:layout_width="256dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:hint="@string/search_category_item"
-        android:imeOptions="flagNoExtractUi|actionNone"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/textMoveProducts"
         app:layout_constraintStart_toStartOf="parent"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="?attr/colorAccent"
-        app:met_textColor="?attr/primaryTextColor"
-        app:met_textColorHint="@color/gray" />
+        app:layout_constraintTop_toBottomOf="@+id/textMoveProducts" />
 
     <ImageView
         android:id="@+id/imageCancelSearch"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="8dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
+        android:layout_marginStart="8dp"
         android:padding="4dp"
-        android:src="?attr/iconCancel"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/editSearch"
-        app:layout_constraintEnd_toEndOf="@+id/editSearch"
-        app:layout_constraintTop_toTopOf="@+id/editSearch"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintStart_toEndOf="@+id/editSearch"
+        app:layout_constraintTop_toTopOf="@+id/editSearch" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listCategories"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:clipToPadding="false"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/editSearch" />
 
     <TextView
         android:id="@+id/textNoResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
-        android:fontFamily="@font/noto"
         android:padding="4dp"
-        android:text="@string/no_categories_products"
-        android:textColor="?attr/secondaryTextColor"
-        android:textStyle="italic"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

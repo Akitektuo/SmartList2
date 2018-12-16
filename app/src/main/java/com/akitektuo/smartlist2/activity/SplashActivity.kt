@@ -14,9 +14,17 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         Themes.setLightStatusBar(this)
+
+        if (!database.isUserSignedIn()) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
+
         database.getCurrentUser {
             with(database.theme) {
                 loadTheme(it)
+                saveInMemory(this@SplashActivity)
                 setupTheme()
             }
             Handler().postDelayed({

@@ -6,6 +6,9 @@ import android.os.Bundle
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.util.*
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_DARK_START
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_LIGHT_START
+import com.akitektuo.smartlist2.util.Constants.Companion.KEY_MODE
 import com.akitektuo.smartlist2.util.Constants.Companion.MODE_ADAPTIVE
 import com.akitektuo.smartlist2.util.Constants.Companion.MODE_DARK
 import com.akitektuo.smartlist2.util.Constants.Companion.MODE_LIGHT
@@ -15,10 +18,13 @@ import java.util.*
 
 class AdaptiveActivity : ThemeActivity() {
 
+    private lateinit var preferences: Preferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adaptive)
 
+        preferences = Preferences(this)
         loadDataForCurrentUser()
         setupChecks()
         setupClicks()
@@ -52,6 +58,7 @@ class AdaptiveActivity : ThemeActivity() {
                     lightStart = newLightStart
                     database.editCurrentUser {
                         it.lightStart = newLightStart
+                        preferences.set(KEY_LIGHT_START, newLightStart)
                         it
                     }
                     textSwitchLight.text = "Switch to light mode at ${lightDate.formatTime()}"
@@ -69,6 +76,7 @@ class AdaptiveActivity : ThemeActivity() {
                     darkStart = newDarkStart
                     database.editCurrentUser {
                         it.darkStart = newDarkStart
+                        preferences.set(KEY_DARK_START, newDarkStart)
                         it
                     }
                     textSwitchDark.text = "Switch to dark mode at ${darkDate.formatTime()}"
@@ -110,6 +118,7 @@ class AdaptiveActivity : ThemeActivity() {
     private fun updateMode(mode: Int) {
         database.editCurrentUser {
             it.mode = mode
+            preferences.set(KEY_MODE, mode)
             it
         }
         changeTheme()
