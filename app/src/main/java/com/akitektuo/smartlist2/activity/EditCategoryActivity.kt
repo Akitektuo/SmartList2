@@ -1,6 +1,7 @@
 package com.akitektuo.smartlist2.activity
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.constraint.ConstraintSet
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
@@ -13,35 +14,50 @@ import com.akitektuo.smartlist2.adapter.list.CategoryExpandableAdapter
 import com.akitektuo.smartlist2.adapter.list.CategoryExpandableModel
 import com.akitektuo.smartlist2.adapter.list.ProductModel
 import com.akitektuo.smartlist2.server.Database
+import com.akitektuo.smartlist2.util.Constants.Companion.INTENT_ID
 import com.akitektuo.smartlist2.util.hideKeyboard
 import com.akitektuo.smartlist2.util.showKeyboard
 import com.akitektuo.smartlist2.util.toast
-import kotlinx.android.synthetic.main.activity_add_category.*
+import kotlinx.android.synthetic.main.activity_edit_category.*
 
-data class CategoryWithProducts(val category: Database.Category, val products: ArrayList<Database.Product>)
-
-class AddCategoryActivity : ThemeActivity() {
+class EditCategoryActivity : ThemeActivity() {
 
     private val constraintSet = ConstraintSet()
     private val adapter = CategoryExpandableAdapter()
     private var searchText = ""
     private val selectedProductIds = ArrayList<String>()
+    private var categoryId = ""
+    private var hideEdit = false
     private val existingCategories = ArrayList<Database.Category>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_category)
+        setContentView(R.layout.activity_edit_category)
 
         loadData()
+
         setupClicks()
         setupSearch()
         setupList()
     }
 
     private fun loadData() {
-        database.getCategories {
-            existingCategories.addAll(it)
+        categoryId = intent?.extras?.getString(INTENT_ID) ?: ""
+        database.getCategory(categoryId) { it ->
+            editCategoryName.setText(it.name)
+            hideEdit = it.name == "Other"
+            if (hideEdit) {
+                hideEdit()
+            }
         }
+        database.getCategories { categories ->
+            existingCategories.addAll(categories.filter { it.id != categoryId })
+        }
+    }
+
+    private fun hideEdit() {
+        editCategoryName.visibility = View.GONE
+        imageDelete.visibility = View.GONE
     }
 
     override fun onResume() {
@@ -64,6 +80,12 @@ class AddCategoryActivity : ThemeActivity() {
         imageCancelSearch.setOnClickListener {
             handleCancelSearch()
         }
+        imageDelete.setOnClickListener {
+            database.deleteCategory(categoryId)
+            Handler().postDelayed({
+                finish()
+            }, 100)
+        }
     }
 
     private fun saveCategory() {
@@ -76,10 +98,13 @@ class AddCategoryActivity : ThemeActivity() {
             toast("The category's name is already used")
             return
         }
-        val category = database.setCategory(Database.Category(database.getCurrentUserId(), categoryName))
+        database.editCategory(categoryId) {
+            it.name = categoryName
+            it
+        }
         selectedProductIds.forEach { id ->
             database.editProduct(id) {
-                it.categoryId = category.id
+                it.categoryId = categoryId
                 it
             }
         }
@@ -90,9 +115,9 @@ class AddCategoryActivity : ThemeActivity() {
         editSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(text: Editable?) {
                 val searchText = text.toString()
-                if (this@AddCategoryActivity.searchText != searchText) {
+                if (this@EditCategoryActivity.searchText != searchText) {
                     repopulateCategories()
-                    this@AddCategoryActivity.searchText = searchText
+                    this@EditCategoryActivity.searchText = searchText
                 }
             }
 
@@ -113,7 +138,7 @@ class AddCategoryActivity : ThemeActivity() {
     private fun repopulateCategories() {
         database.searchCategoriesAndProducts(editSearch.text.toString()) { categoriesWithProducts ->
             adapter.clear()
-            categoriesWithProducts.forEach { categoryWithProduct ->
+            categoriesWithProducts.filter { it.category.id != categoryId }.forEach { categoryWithProduct ->
                 val products = ArrayList<ProductModel>()
                 categoryWithProduct.products.forEach {
                     products.add(ProductModel(it.id, it.name) { id, checked ->
@@ -150,14 +175,20 @@ class AddCategoryActivity : ThemeActivity() {
     }
 
     private fun showSearch() {
-        constraintSet.clone(this, R.layout.activity_add_category_search)
-        TransitionManager.beginDelayedTransition(layoutAddCategory)
-        constraintSet.applyTo(layoutAddCategory)
+        constraintSet.clone(this, R.layout.activity_edit_category_search)
+        TransitionManager.beginDelayedTransition(layoutEditCategory)
+        constraintSet.applyTo(layoutEditCategory)
+        if (hideEdit) {
+            hideEdit()
+        }
     }
 
     private fun hideSearch() {
-        constraintSet.clone(this, R.layout.activity_add_category)
-        TransitionManager.beginDelayedTransition(layoutAddCategory)
-        constraintSet.applyTo(layoutAddCategory)
+        constraintSet.clone(this, R.layout.activity_edit_category)
+        TransitionManager.beginDelayedTransition(layoutEditCategory)
+        constraintSet.applyTo(layoutEditCategory)
+        if (hideEdit) {
+            hideEdit()
+        }
     }
 }

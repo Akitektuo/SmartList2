@@ -12,9 +12,9 @@ import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.adapter.list.CategoryAdapter
 import com.akitektuo.smartlist2.adapter.list.CategoryModel
+import com.akitektuo.smartlist2.util.Constants.Companion.INTENT_ID
 import com.akitektuo.smartlist2.util.hideKeyboard
 import com.akitektuo.smartlist2.util.showKeyboard
-import com.akitektuo.smartlist2.util.toast
 import kotlinx.android.synthetic.main.activity_categories.*
 
 class CategoriesActivity : ThemeActivity() {
@@ -98,7 +98,10 @@ class CategoriesActivity : ThemeActivity() {
                 database.getProducts(category.id) {
                     textNoResult.visibility = View.GONE
                     adapter.add(CategoryModel(category.name, it.size) {
-                        toast("Soon")
+                        val intent = Intent(this, CategoryActivity::class.java)
+                        intent.putExtra(INTENT_ID, category.id)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, android.R.anim.fade_out)
                     })
                 }
             }

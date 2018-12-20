@@ -151,7 +151,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textSettings" />
 
             <TextView
-                android:id="@+id/textName"
+                android:id="@+id/textItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -168,8 +168,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="@+id/textName"
-                app:layout_constraintTop_toBottomOf="@+id/textName" />
+                app:layout_constraintStart_toStartOf="@+id/textItem"
+                app:layout_constraintTop_toBottomOf="@+id/textItem" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/listOptions"

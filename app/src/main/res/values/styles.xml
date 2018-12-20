@@ -39,6 +39,7 @@
         <item name="iconSheets">@drawable/ic_light_sheets</item>
         <item name="iconTime">@drawable/ic_light_time</item>
         <item name="iconExpand">@drawable/light_expand</item>
+        <item name="iconEdit">@drawable/light_edit</item>
     </style>
 
     <style name="ActivityTheme.Primary.Base.Dark" parent="Theme.AppCompat.NoActionBar">
@@ -61,6 +62,7 @@
         <item name="iconSheets">@drawable/ic_dark_sheets</item>
         <item name="iconTime">@drawable/ic_dark_time</item>
         <item name="iconExpand">@drawable/dark_expand</item>
+        <item name="iconEdit">@drawable/dark_edit</item>
     </style>
 
     <style name="AppTheme.Light" parent="ActivityTheme.Primary.Base.Light">

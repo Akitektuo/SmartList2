@@ -20,5 +20,6 @@
         <attr name="iconSheets" format="integer" />
         <attr name="iconTime" format="integer" />
         <attr name="iconExpand" format="integer" />
+        <attr name="iconEdit" format="integer" />
     </declare-styleable>
 </resources>

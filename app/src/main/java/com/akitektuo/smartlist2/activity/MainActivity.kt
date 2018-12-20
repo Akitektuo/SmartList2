@@ -61,7 +61,7 @@ class MainActivity : ThemeActivity() {
             drawerMain.closeDrawer(Gravity.START)
         }
         Glide.with(this).load(database.auth.currentUser?.photoUrl).apply(RequestOptions().placeholder(R.drawable.profile_placeholder)).into(imageProfile)
-        textName.text = database.auth.currentUser?.displayName
+        textItem.text = database.auth.currentUser?.displayName
         textEmail.text = database.auth.currentUser?.email
         listOptions.layoutManager = LinearLayoutManager(this)
         listOptions.adapter = optionAdapter

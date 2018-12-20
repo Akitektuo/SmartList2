@@ -12,7 +12,7 @@ data class CategoryModel(val name: String, val products: Int, val onClick: () ->
 
 class CategoryViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-    private val textName = view.findViewById<TextView>(R.id.textName)
+    private val textName = view.findViewById<TextView>(R.id.textItem)
     private val textProducts = view.findViewById<TextView>(R.id.textProducts)
 
     fun bind(context: Context, category: CategoryModel) = with(category) {

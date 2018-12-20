@@ -11,6 +11,8 @@ class Constants {
         const val KEY_DESCRIPTION = "description"
         const val KEY_OWNER = "owner"
 
+        const val INTENT_ID = "id"
+
         const val KEY_INIT = "init"
         const val KEY_MODE = "mode"
         const val KEY_LIGHT_START = "light_start"

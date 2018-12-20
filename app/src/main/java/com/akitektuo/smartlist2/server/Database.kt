@@ -90,7 +90,7 @@ class Database {
 
     data class Category(
             val userId: String = "",
-            val name: String = "",
+            var name: String = "",
             var id: String = ""
     )
 
@@ -237,9 +237,39 @@ class Database {
                 data.children.mapNotNullTo(categories) {
                     it.getValue(Category::class.java)
                 }
-                result(categories.filter { it.userId == auth.currentUser?.uid } as ArrayList<Category>)
+                result(categories.filter { it.userId == getCurrentUserId() } as ArrayList<Category>)
             }
         })
+    }
+
+    fun getDefaultCategory(result: (Category) -> Unit) {
+        databaseCategories.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                onError(error.message)
+            }
+
+            override fun onDataChange(data: DataSnapshot) {
+                val categories = ArrayList<Category>()
+                data.children.mapNotNullTo(categories) {
+                    it.getValue(Category::class.java)
+                }
+                result(categories.filter { it.userId == getCurrentUserId() && it.name == "Other" }[0])
+            }
+        })
+    }
+
+    fun deleteCategory(id: String) {
+        getDefaultCategory { defaultCategory ->
+            getProducts(id) { products ->
+                products.forEach { product ->
+                    editProduct(product.id) {
+                        it.categoryId = defaultCategory.id
+                        it
+                    }
+                }
+                databaseCategories.child(id).removeValue()
+            }
+        }
     }
 
     fun getProducts(result: (ArrayList<Product>) -> Unit) {
@@ -253,7 +283,7 @@ class Database {
                 data.children.mapNotNullTo(products) {
                     it.getValue(Product::class.java)
                 }
-                result(products.filter { it.userId == auth.currentUser?.uid } as ArrayList<Product>)
+                result(products.filter { it.userId == getCurrentUserId() } as ArrayList<Product>)
             }
         })
     }
@@ -269,7 +299,7 @@ class Database {
                 data.children.mapNotNullTo(products) {
                     it.getValue(Product::class.java)
                 }
-                result(products.filter { it.userId == auth.currentUser?.uid && it.categoryId == categoryId } as ArrayList<Product>)
+                result(products.filter { it.userId == getCurrentUserId() && it.categoryId == categoryId } as ArrayList<Product>)
             }
         })
     }
@@ -282,6 +312,18 @@ class Database {
 
             override fun onDataChange(data: DataSnapshot) {
                 result(data.getValue(Product::class.java) ?: Product())
+            }
+        })
+    }
+
+    fun getCategory(id: String, result: (Category) -> Unit) {
+        databaseCategories.child(id).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                onError(error.message)
+            }
+
+            override fun onDataChange(data: DataSnapshot) {
+                result(data.getValue(Category::class.java) ?: Category())
             }
         })
     }
@@ -310,6 +352,12 @@ class Database {
     fun editProduct(id: String, edit: (Product) -> Product) {
         getProduct(id) {
             setProduct(edit(it))
+        }
+    }
+
+    fun editCategory(id: String, edit: (Category) -> Category) {
+        getCategory(id) {
+            setCategory(edit(it))
         }
     }
 

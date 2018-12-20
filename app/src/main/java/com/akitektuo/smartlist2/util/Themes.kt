@@ -97,6 +97,7 @@ class Themes {
             lightStart = getLong(KEY_LIGHT_START)
             darkStart = getLong(KEY_DARK_START)
         }
+        setupTheme()
     }
 
 }
