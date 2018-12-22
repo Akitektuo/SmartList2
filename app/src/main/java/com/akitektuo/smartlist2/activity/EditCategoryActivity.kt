@@ -108,7 +108,9 @@ class EditCategoryActivity : ThemeActivity() {
                 it
             }
         }
-        finish()
+        Handler().postDelayed({
+            finish()
+        }, 100)
     }
 
     private fun setupSearch() {
@@ -151,11 +153,15 @@ class EditCategoryActivity : ThemeActivity() {
                 }
                 adapter.add(CategoryExpandableModel(categoryWithProduct.category.name, products))
             }
-            if (adapter.empty()) {
-                textNoResult.visibility = View.VISIBLE
-            } else {
-                textNoResult.visibility = View.GONE
-            }
+            showError()
+        }
+    }
+
+    private fun showError() {
+        if (adapter.isEmpty()) {
+            textNoResult.visibility = View.VISIBLE
+        } else {
+            textNoResult.visibility = View.GONE
         }
     }
 
@@ -181,6 +187,7 @@ class EditCategoryActivity : ThemeActivity() {
         if (hideEdit) {
             hideEdit()
         }
+        showError()
     }
 
     private fun hideSearch() {
@@ -190,5 +197,6 @@ class EditCategoryActivity : ThemeActivity() {
         if (hideEdit) {
             hideEdit()
         }
+        showError()
     }
 }

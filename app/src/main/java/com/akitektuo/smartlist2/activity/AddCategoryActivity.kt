@@ -126,11 +126,15 @@ class AddCategoryActivity : ThemeActivity() {
                 }
                 adapter.add(CategoryExpandableModel(categoryWithProduct.category.name, products))
             }
-            if (adapter.empty()) {
-                textNoResult.visibility = View.VISIBLE
-            } else {
-                textNoResult.visibility = View.GONE
-            }
+            showError()
+        }
+    }
+
+    private fun showError() {
+        if (adapter.isEmpty()) {
+            textNoResult.visibility = View.VISIBLE
+        } else {
+            textNoResult.visibility = View.GONE
         }
     }
 
@@ -153,11 +157,13 @@ class AddCategoryActivity : ThemeActivity() {
         constraintSet.clone(this, R.layout.activity_add_category_search)
         TransitionManager.beginDelayedTransition(layoutAddCategory)
         constraintSet.applyTo(layoutAddCategory)
+        showError()
     }
 
     private fun hideSearch() {
         constraintSet.clone(this, R.layout.activity_add_category)
         TransitionManager.beginDelayedTransition(layoutAddCategory)
         constraintSet.applyTo(layoutAddCategory)
+        showError()
     }
 }

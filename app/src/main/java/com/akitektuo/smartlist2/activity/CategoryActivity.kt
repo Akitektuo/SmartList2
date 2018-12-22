@@ -2,19 +2,27 @@ package com.akitektuo.smartlist2.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.constraint.ConstraintSet
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
+import android.transition.TransitionManager
 import android.view.View
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.adapter.list.SimpleAdapter
 import com.akitektuo.smartlist2.util.Constants
 import com.akitektuo.smartlist2.util.Constants.Companion.INTENT_ID
+import com.akitektuo.smartlist2.util.hideKeyboard
+import com.akitektuo.smartlist2.util.showKeyboard
 import kotlinx.android.synthetic.main.activity_category.*
 
 class CategoryActivity : ThemeActivity() {
 
     private val adapter = SimpleAdapter()
     private var categoryId = ""
+    private val constraintSet = ConstraintSet()
+    private var searchText = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +30,26 @@ class CategoryActivity : ThemeActivity() {
 
         setupList()
         setupClicks()
+        setupSearch()
+    }
+
+    private fun setupSearch() {
+        editSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(text: Editable?) {
+                val searchText = text.toString()
+                if (this@CategoryActivity.searchText != searchText) {
+                    repopulateProducts()
+                    this@CategoryActivity.searchText = searchText
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+        })
     }
 
     override fun onResume() {
@@ -46,16 +74,25 @@ class CategoryActivity : ThemeActivity() {
     }
 
     private fun repopulateProducts() {
-        database.getProducts(categoryId) { products ->
+        database.searchProducts(categoryId, editSearch.text.toString()) { products ->
             adapter.clear()
             products.sortedBy { it.name }.forEach {
                 adapter.add(it.name)
             }
-            if (adapter.isEmpty()) {
-                textNoProducts.visibility = View.VISIBLE
+            showError()
+        }
+    }
+
+    private fun showError() {
+        if (adapter.isEmpty()) {
+            textNoProducts.visibility = View.VISIBLE
+            textNoProducts.text = getString(R.string.no_products, if (editSearch.text.isNullOrBlank()) {
+                ""
             } else {
-                textNoProducts.visibility = View.GONE
-            }
+                "for \"${editSearch.text.toString()}\""
+            })
+        } else {
+            textNoProducts.visibility = View.GONE
         }
     }
 
@@ -69,10 +106,42 @@ class CategoryActivity : ThemeActivity() {
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, android.R.anim.fade_out)
         }
+        imageSearch.setOnClickListener {
+            showSearch()
+            editSearch.requestFocus()
+            editSearch.showKeyboard(this)
+        }
+        imageCancelSearch.setOnClickListener {
+            handleCancelSearch()
+        }
+    }
+
+    private fun handleCancelSearch() {
+        if (editSearch.text.toString().isEmpty()) {
+            hideSearch()
+            editSearch.clearFocus()
+            hideKeyboard()
+        } else {
+            editSearch.setText("")
+        }
     }
 
     override fun finish() {
         super.finish()
         overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_right)
+    }
+
+    private fun showSearch() {
+        constraintSet.clone(this, R.layout.activity_category_search)
+        TransitionManager.beginDelayedTransition(layoutCategory)
+        constraintSet.applyTo(layoutCategory)
+        showError()
+    }
+
+    private fun hideSearch() {
+        constraintSet.clone(this, R.layout.activity_category)
+        TransitionManager.beginDelayedTransition(layoutCategory)
+        constraintSet.applyTo(layoutCategory)
+        showError()
     }
 }

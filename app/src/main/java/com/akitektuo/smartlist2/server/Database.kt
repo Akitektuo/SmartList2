@@ -88,6 +88,14 @@ class Database {
             val id: String = ""
     )
 
+    data class ProductPrice(
+            val productId: String = "",
+            val priceId: String = "",
+            val date: Long = 0,
+            val enforced: Boolean = false,
+            var id: String = ""
+    )
+
     data class Category(
             val userId: String = "",
             var name: String = "",
@@ -300,6 +308,22 @@ class Database {
                     it.getValue(Product::class.java)
                 }
                 result(products.filter { it.userId == getCurrentUserId() && it.categoryId == categoryId } as ArrayList<Product>)
+            }
+        })
+    }
+
+    fun searchProducts(categoryId: String, search: String, result: (ArrayList<Product>) -> Unit) {
+        databaseProducts.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                onError(error.message)
+            }
+
+            override fun onDataChange(data: DataSnapshot) {
+                val products = ArrayList<Product>()
+                data.children.mapNotNullTo(products) {
+                    it.getValue(Product::class.java)
+                }
+                result(products.filter { it.userId == getCurrentUserId() && it.categoryId == categoryId && it.name.contains(search, true) } as ArrayList<Product>)
             }
         })
     }

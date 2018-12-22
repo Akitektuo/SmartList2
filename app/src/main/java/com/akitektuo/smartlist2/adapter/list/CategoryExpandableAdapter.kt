@@ -90,6 +90,6 @@ class CategoryExpandableAdapter : RecyclerView.Adapter<CategoryExpandableViewHol
         notifyDataSetChanged()
     }
 
-    fun empty() = categories.size == 0
+    fun isEmpty() = categories.size == 0
 
 }
