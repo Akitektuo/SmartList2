@@ -1,181 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:id="@+id/layoutAdaptive"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:background="?attr/backgroundColor"
-                                                   tools:context=".activity.AdaptiveActivity">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layoutAdaptive"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
+        tools:context=".activity.AdaptiveActivity">
 
     <TextView
-        android:id="@+id/textAdaptive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/noto"
-        android:text="@string/adaptive_mode"
-        android:textColor="?attr/primaryTextColor"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageBack"
-        app:layout_constraintStart_toEndOf="@+id/imageBack"
-        app:layout_constraintTop_toTopOf="@+id/imageBack" />
+            android:id="@+id/textAdaptive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/noto"
+            android:text="@string/adaptive_mode"
+            android:textColor="?attr/primaryTextColor"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageBack"
+            app:layout_constraintStart_toEndOf="@+id/imageBack"
+            app:layout_constraintTop_toTopOf="@+id/imageBack"/>
 
     <ImageView
-        android:id="@+id/imageBack"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="4dp"
-        android:src="?attr/iconBack"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/imageBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="4dp"
+            android:src="?attr/iconBack"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/textAdaptiveDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/noto"
-        android:text="@string/adaptive_description"
-        android:textColor="?attr/secondaryTextColor"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageBack"
-        app:layout_constraintTop_toBottomOf="@+id/textAdaptive" />
+            android:id="@+id/textAdaptiveDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/noto"
+            android:text="@string/adaptive_description"
+            android:textColor="?attr/secondaryTextColor"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageBack"
+            app:layout_constraintTop_toBottomOf="@+id/textAdaptive"/>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:clipToPadding="false"
-        android:paddingTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textAdaptiveDescription">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:paddingTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textAdaptiveDescription">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/radioAdaptiveMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                    android:id="@+id/radioAdaptiveMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/textAdaptiveMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/noto"
-                android:text="@string/switch_automatically"
-                android:textColor="?attr/primaryTextColor"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/radioAdaptiveMode"
-                app:layout_constraintStart_toEndOf="@+id/radioAdaptiveMode"
-                app:layout_constraintTop_toTopOf="@+id/radioAdaptiveMode" />
+                    android:id="@+id/textAdaptiveMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/noto"
+                    android:text="@string/switch_automatically"
+                    android:textColor="?attr/primaryTextColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/radioAdaptiveMode"
+                    app:layout_constraintStart_toEndOf="@+id/radioAdaptiveMode"
+                    app:layout_constraintTop_toTopOf="@+id/radioAdaptiveMode"/>
 
             <TextView
-                android:id="@+id/textSwitchLight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/noto"
-                android:textColor="?attr/secondaryTextColor"
-                app:layout_constraintStart_toStartOf="@+id/textAdaptiveMode"
-                app:layout_constraintTop_toBottomOf="@+id/textAdaptiveMode" />
+                    android:id="@+id/textSwitchLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/noto"
+                    android:textColor="?attr/secondaryTextColor"
+                    app:layout_constraintStart_toStartOf="@+id/textAdaptiveMode"
+                    app:layout_constraintTop_toBottomOf="@+id/textAdaptiveMode"/>
 
             <TextView
-                android:id="@+id/textSwitchDark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/noto"
-                android:textColor="?attr/secondaryTextColor"
-                app:layout_constraintStart_toStartOf="@+id/textAdaptiveMode"
-                app:layout_constraintTop_toBottomOf="@+id/textSwitchLight" />
+                    android:id="@+id/textSwitchDark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/noto"
+                    android:textColor="?attr/secondaryTextColor"
+                    app:layout_constraintStart_toStartOf="@+id/textAdaptiveMode"
+                    app:layout_constraintTop_toBottomOf="@+id/textSwitchLight"/>
 
             <ImageView
-                android:id="@+id/imageEditLight"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="4dp"
-                android:src="?attr/iconTime"
-                app:layout_constraintBottom_toBottomOf="@+id/textSwitchLight"
-                app:layout_constraintStart_toEndOf="@+id/textSwitchLight"
-                app:layout_constraintTop_toTopOf="@+id/textSwitchLight" />
+                    android:id="@+id/imageEditLight"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="4dp"
+                    android:src="?attr/iconTime"
+                    app:layout_constraintBottom_toBottomOf="@+id/textSwitchLight"
+                    app:layout_constraintStart_toEndOf="@+id/textSwitchLight"
+                    app:layout_constraintTop_toTopOf="@+id/textSwitchLight"/>
 
             <ImageView
-                android:id="@+id/imageEditDark"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="4dp"
-                android:src="?attr/iconTime"
-                app:layout_constraintBottom_toBottomOf="@+id/textSwitchDark"
-                app:layout_constraintStart_toEndOf="@+id/textSwitchDark"
-                app:layout_constraintTop_toTopOf="@+id/textSwitchDark" />
+                    android:id="@+id/imageEditDark"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="4dp"
+                    android:src="?attr/iconTime"
+                    app:layout_constraintBottom_toBottomOf="@+id/textSwitchDark"
+                    app:layout_constraintStart_toEndOf="@+id/textSwitchDark"
+                    app:layout_constraintTop_toTopOf="@+id/textSwitchDark"/>
 
             <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/radioLightMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textSwitchDark" />
+                    android:id="@+id/radioLightMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textSwitchDark"/>
 
             <TextView
-                android:id="@+id/textLightMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/noto"
-                android:text="@string/only_light_mode"
-                android:textColor="?attr/primaryTextColor"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/radioLightMode"
-                app:layout_constraintStart_toEndOf="@+id/radioLightMode"
-                app:layout_constraintTop_toTopOf="@+id/radioLightMode" />
+                    android:id="@+id/textLightMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/noto"
+                    android:text="@string/only_light_mode"
+                    android:textColor="?attr/primaryTextColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/radioLightMode"
+                    app:layout_constraintStart_toEndOf="@+id/radioLightMode"
+                    app:layout_constraintTop_toTopOf="@+id/radioLightMode"/>
 
             <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/radioDarkMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioLightMode" />
+                    android:id="@+id/radioDarkMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/radioLightMode"/>
 
             <TextView
-                android:id="@+id/textDarkMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/noto"
-                android:text="@string/only_dark_mode"
-                android:textColor="?attr/primaryTextColor"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/radioDarkMode"
-                app:layout_constraintStart_toEndOf="@+id/radioDarkMode"
-                app:layout_constraintTop_toTopOf="@+id/radioDarkMode" />
+                    android:id="@+id/textDarkMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/noto"
+                    android:text="@string/only_dark_mode"
+                    android:textColor="?attr/primaryTextColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/radioDarkMode"
+                    app:layout_constraintStart_toEndOf="@+id/radioDarkMode"
+                    app:layout_constraintTop_toTopOf="@+id/radioDarkMode"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
