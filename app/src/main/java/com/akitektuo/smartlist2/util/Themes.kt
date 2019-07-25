@@ -3,9 +3,9 @@ package com.akitektuo.smartlist2.util
 import android.app.Activity
 import android.content.Context
 import android.os.Build
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatDelegate
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.server.Database
 import com.akitektuo.smartlist2.util.Constants.Companion.KEY_DARK_START

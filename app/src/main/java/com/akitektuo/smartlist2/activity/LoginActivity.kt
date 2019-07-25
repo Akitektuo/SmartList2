@@ -4,14 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.adapter.pager.BoardingAdapter
 import com.akitektuo.smartlist2.server.Authentication
 import com.akitektuo.smartlist2.util.Themes.Companion.setLightStatusBar
 import com.akitektuo.smartlist2.util.displayError
 import kotlinx.android.synthetic.main.activity_login.*
-
 
 class LoginActivity : AppCompatActivity() {
 
@@ -50,14 +49,24 @@ class LoginActivity : AppCompatActivity() {
         adapter.add(R.drawable.color_ai, "Artificial Intelligence", getString(R.string.ai_description))
         pagerBoarding.adapter = adapter
         dotsBoarding.setViewPager(pagerBoarding)
-        pagerBoarding.setScrollDurationFactor(2.0)
+        pagerBoarding.scroller?.scrollFactor = 2.0
         pagerBoarding.interval = 5000
-        pagerBoarding.startAutoScroll(5000)
+        pagerBoarding.startAutoScroll()
     }
 
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    }
+
+    override fun onResume() {
+        super.onResume()
+        pagerBoarding.startAutoScroll()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        pagerBoarding.stopAutoScroll()
     }
 }

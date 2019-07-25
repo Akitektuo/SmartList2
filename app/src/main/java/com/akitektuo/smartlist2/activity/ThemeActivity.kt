@@ -1,8 +1,8 @@
 package com.akitektuo.smartlist2.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.util.Themes

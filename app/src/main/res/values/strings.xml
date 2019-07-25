@@ -27,4 +27,7 @@
     <string name="edit_category">Edit Category</string>
     <string name="no_products">No products found %1$s</string>
     <string name="search_products">Search products</string>
+    <string name="currency_description">Select the currencies that you might use so they can be available even offline.
+        Smart List will refresh the currency exchange rates each time the app starts.
+    </string>
 </resources>

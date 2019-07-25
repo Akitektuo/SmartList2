@@ -1,8 +1,5 @@
 package com.akitektuo.smartlist2.adapter.list
 
-import android.support.constraint.ConstraintLayout
-import android.support.constraint.ConstraintSet
-import android.support.v7.widget.RecyclerView
 import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +7,9 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.recyclerview.widget.RecyclerView
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.util.inflate
 import com.akitektuo.smartlist2.util.rotate

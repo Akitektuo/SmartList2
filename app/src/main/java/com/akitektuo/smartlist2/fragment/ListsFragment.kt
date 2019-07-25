@@ -1,12 +1,12 @@
 package com.akitektuo.smartlist2.fragment
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatDelegate
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.adapter.list.ListModel
 import com.akitektuo.smartlist2.adapter.list.ListsAdapter

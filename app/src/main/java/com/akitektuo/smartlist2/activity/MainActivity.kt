@@ -2,8 +2,8 @@ package com.akitektuo.smartlist2.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.view.Gravity
+import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.adapter.list.OptionAdapter
@@ -40,7 +40,7 @@ class MainActivity : ThemeActivity() {
         optionAdapter.add(OptionModel("Auto Fill") {
             startActivity(AutoFillActivity::class.java)
         })
-        optionAdapter.add(OptionModel("Preferred Currency") {
+        optionAdapter.add(OptionModel("Currencies") {
             startActivity(CurrencyActivity::class.java)
         })
         optionAdapter.add(OptionModel("Statistics") {
@@ -55,10 +55,10 @@ class MainActivity : ThemeActivity() {
 
     private fun setupDrawer() {
         imageMenu.setOnClickListener {
-            drawerMain.openDrawer(Gravity.START)
+            drawerMain.openDrawer(GravityCompat.START)
         }
         imageBack.setOnClickListener {
-            drawerMain.closeDrawer(Gravity.START)
+            drawerMain.closeDrawer(GravityCompat.START)
         }
         Glide.with(this).load(database.auth.currentUser?.photoUrl).apply(RequestOptions().placeholder(R.drawable.profile_placeholder)).into(imageProfile)
         textItem.text = database.auth.currentUser?.displayName
@@ -68,7 +68,7 @@ class MainActivity : ThemeActivity() {
     }
 
     private fun startActivity(cls: Class<*>) {
-        drawerMain.closeDrawer(Gravity.START)
+        drawerMain.closeDrawer(GravityCompat.START)
         startActivity(Intent(this, cls))
         overridePendingTransition(R.anim.slide_in_right, android.R.anim.fade_out)
         finish()

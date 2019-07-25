@@ -3,7 +3,6 @@ package com.akitektuo.smartlist2.util
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
-import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.akitektuo.smartlist2.R
+import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -100,7 +101,7 @@ fun ViewGroup.inflate(layoutRes: Int): View {
 
 fun View.displayError(msg: String) {
     val bar = Snackbar.make(this, msg, Snackbar.LENGTH_LONG)
-    val view = bar.view.findViewById<TextView>(android.support.design.R.id.snackbar_text)
+    val view = bar.view.findViewById<TextView>(R.id.snackbar_text)
     view.setTextColor(Color.WHITE)
     bar.view.setBackgroundColor(Color.RED)
     bar.show()
@@ -129,4 +130,11 @@ fun ImageView.rotate(reverse: Boolean = false) {
     }
     rotateAnim.duration = 600
     this.animation = rotateAnim
+}
+
+operator fun Int.plus(int: Int?): Int {
+    if (int == null) {
+        return this
+    }
+    return this + int
 }

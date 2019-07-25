@@ -2,19 +2,19 @@ package com.akitektuo.smartlist2.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.constraint.ConstraintSet
-import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.transition.TransitionManager
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.SmartList.Companion.database
 import com.akitektuo.smartlist2.adapter.list.SimpleAdapter
-import com.akitektuo.smartlist2.util.Constants
 import com.akitektuo.smartlist2.util.Constants.Companion.INTENT_ID
 import com.akitektuo.smartlist2.util.hideKeyboard
 import com.akitektuo.smartlist2.util.showKeyboard
+import com.akitektuo.smartlist2.util.toast
 import kotlinx.android.synthetic.main.activity_category.*
 
 class CategoryActivity : ThemeActivity() {
@@ -102,7 +102,7 @@ class CategoryActivity : ThemeActivity() {
         }
         imageEdit.setOnClickListener {
             val intent = Intent(this, EditCategoryActivity::class.java)
-            intent.putExtra(Constants.INTENT_ID, categoryId)
+            intent.putExtra(INTENT_ID, categoryId)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, android.R.anim.fade_out)
         }
@@ -113,6 +113,9 @@ class CategoryActivity : ThemeActivity() {
         }
         imageCancelSearch.setOnClickListener {
             handleCancelSearch()
+        }
+        imageAdd.setOnClickListener {
+            toast("Add soon")
         }
     }
 

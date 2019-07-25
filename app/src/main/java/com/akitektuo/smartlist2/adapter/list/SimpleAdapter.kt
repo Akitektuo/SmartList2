@@ -1,9 +1,9 @@
 package com.akitektuo.smartlist2.adapter.list
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.akitektuo.smartlist2.R
 import com.akitektuo.smartlist2.util.inflate
 
