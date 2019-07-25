@@ -10,7 +10,7 @@
     <string name="adaptive_mode">Adaptive Mode</string>
     <string name="auto_fill">Auto Fill</string>
     <string name="recommendations">Recommendations</string>
-    <string name="currency">Currency</string>
+    <string name="currencies">Currencies</string>
     <string name="statistics">Statistics</string>
     <string name="adaptive_description">Adaptive mode adjusts the theme of Smart List making it easier on your eyes by dimming the light in the darkness or by making the screen more visible in the strong light</string>
     <string name="switch_automatically">Switch automatically between modes</string>
@@ -30,4 +30,6 @@
     <string name="currency_description">Select the currencies that you might use so they can be available even offline.
         Smart List will refresh the currency exchange rates each time the app starts.
     </string>
+    <string name="search_for_currency">Search for currency</string>
+    <string name="no_result_found">No result found</string>
 </resources>
